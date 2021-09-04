@@ -3,6 +3,7 @@ import routes from "../routes";
 
 import SignIn from "../../pages/auth/SignIn";
 import SignUp from "../../pages/auth/SignUp";
+import AuthTemplate from "../../hoc/templates/Auth";
 
 const Router = () => (
   <BrowserRouter>
@@ -12,6 +13,7 @@ const Router = () => (
       </Route>
       <Route path={routes.SIGN_IN} component={SignIn} />
       <Route path={routes.SIGN_UP} component={SignUp} />
+      <Route path={routes.HOME} component={AuthTemplate} />
     </Switch>
   </BrowserRouter>
 );

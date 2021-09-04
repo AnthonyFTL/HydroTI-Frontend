@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import WithShadow from "../../../hoc/WithShadow";
-import RoleRadioButtons from "../RoleRadioButtons";
 import OutlinedInput from "../../Common/OutlinedInput";
 import Button from "@material-ui/core/Button";
 import routes from "../../../router/routes";
@@ -16,39 +15,36 @@ const useStyles = makeStyles({
     display: "grid",
     rowGap: 20,
     backgroundColor: "rgba(255,255,255,.9)",
-    width: 250,
     textAlign: "center",
   },
 });
 
-const SignUpForm = ({ onSignUp }) => {
+const SignInForm = ({ onSignIn }) => {
   const styles = useStyles();
 
-  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignUp({ role, email, password });
+    onSignIn({ email, password });
   };
 
   return (
     <WithShadow>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2>Sign Up</h2>
-        <RoleRadioButtons value={role} onChange={setRole} />
+        <h2>Sign In</h2>
         <OutlinedInput
-          id="sign-up-email"
-          helperTextId="sign-up-email-helper-text"
+          id="sign-in-email"
+          helperTextId="sign-in-email-helper-text"
           label="Email"
           value={email}
           onChange={setEmail}
           fullWidth
         />
         <OutlinedInput
-          id="sign-up-password"
-          helperTextId="sign-up-password-helper-text"
+          id="sign-in-password"
+          helperTextId="sign-in-password-helper-text"
           label="Password"
           value={password}
           onChange={setPassword}
@@ -56,20 +52,20 @@ const SignUpForm = ({ onSignUp }) => {
           type="password"
         />
         <Button type="submit" variant="contained" color="primary">
-          Sign Up
+          Sign In
         </Button>
-        <Link to={routes.SIGN_IN}>Go to Sign In</Link>
+        <Link to={routes.SIGN_UP}>Go to Sign Up</Link>
       </form>
     </WithShadow>
   );
 };
 
-SignUpForm.propTypes = {
-  onSignUp: PropTypes.func,
+SignInForm.propTypes = {
+  onSignIn: PropTypes.func,
 };
 
-SignUpForm.defaultProps = {
-  onSignUp: () => {},
+SignInForm.defaultProps = {
+  onSignIn: () => {},
 };
 
-export default SignUpForm;
+export default SignInForm;

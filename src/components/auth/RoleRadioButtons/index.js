@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import RoleRadioButton from "./RoleRadioButton";
 import role from "../../../model/role";
+import irrigationManagerSVG from "../../../assets/role-irrigation-manager.svg";
+import irrigationChiefSVG from "../../../assets/role-irrigation-chief.svg";
 
 const useStyles = makeStyles({
   roleRadioButtons: {
@@ -23,7 +25,7 @@ const RoleRadioButtons = ({ value, onChange }) => {
         value={role.ROLE_IRRIGATION_MANAGER}
         checked={value === role.ROLE_IRRIGATION_MANAGER}
         onChange={(e) => onChange(e.target.value)}
-        src=""
+        src={irrigationManagerSVG}
       />
       <RoleRadioButton
         label="irrigation chief"
@@ -31,7 +33,7 @@ const RoleRadioButtons = ({ value, onChange }) => {
         value={role.ROLE_IRRIGATION_CHIEF}
         checked={value === role.ROLE_IRRIGATION_CHIEF}
         onChange={(e) => onChange(e.target.value)}
-        src=""
+        src={irrigationChiefSVG}
       />
     </div>
   );

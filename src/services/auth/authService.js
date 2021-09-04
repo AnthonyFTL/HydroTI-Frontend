@@ -11,3 +11,15 @@ export const signUp = async (email, password, role) => {
     return Promise.reject(error);
   }
 };
+
+export const signIn = async (email, password) => {
+  try {
+    const response = await httpClient.post("Auth/token", {
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
