@@ -1,16 +1,19 @@
-import { makeStyles, useTheme } from "@material-ui/core";
+import { makeStyles, Typography, useTheme } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import WithShadow from "../../../../hoc/WithShadow";
 
 const useStyles = makeStyles({
-  roleRadioButton: {
+  card: {
     width: "100%",
-    borderRadius: 20,
+    borderRadius: 10,
     display: "flex",
     flexDirection: "column",
     textAlign: "center",
     overflow: "hidden",
+  },
+  roleRadioButton: {
+    padding: 10,
   },
   radioButton: {
     display: "none",
@@ -28,17 +31,22 @@ const RoleRadioButton = ({ label, src, checked, ...rest }) => {
   const theme = useTheme();
 
   return (
-    <WithShadow color={checked ? theme.palette.primary.light : ""}>
-      <label className={styles.roleRadioButton}>
-        <input
-          className={styles.radioButton}
-          type="radio"
-          checked={checked}
-          {...rest}
-        />
-        <img className={styles.image} src={src} alt="radio" />
-        <p className={styles.label}>{label}</p>
-      </label>
+    <WithShadow
+      color={checked ? theme.palette.primary.light : ""}
+      className={styles.card}
+    >
+      <div className={styles.roleRadioButton}>
+        <label>
+          <input
+            className={styles.radioButton}
+            type="radio"
+            checked={checked}
+            {...rest}
+          />
+          <img className={styles.image} src={src} alt="radio" />
+          <Typography variant="body1">{label}</Typography>
+        </label>
+      </div>
     </WithShadow>
   );
 };

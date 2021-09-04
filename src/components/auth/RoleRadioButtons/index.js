@@ -28,7 +28,7 @@ const RoleRadioButtons = ({ value, onChange }) => {
         src={irrigationManagerSVG}
       />
       <RoleRadioButton
-        label="irrigation chief"
+        label="irrigation director"
         name="role"
         value={role.ROLE_IRRIGATION_CHIEF}
         checked={value === role.ROLE_IRRIGATION_CHIEF}

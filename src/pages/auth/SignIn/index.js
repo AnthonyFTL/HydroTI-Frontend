@@ -5,21 +5,19 @@ import SignInForm from "../../../components/auth/SignInForm";
 import routes from "../../../router/routes";
 
 import { requestSignIn } from "../../../store/actions/auth";
-import AuthTemplate from "../../../hoc/templates/Auth";
+import AuthPageTemplate from "../../../hoc/templates/auth/AuthPageTemplate";
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSignIn = (data) =>
-    dispatch(requestSignIn(data.email, data.password)).then(() =>
-      history.push(routes.HOME)
-    );
+    dispatch(requestSignIn(data)).then(() => history.push(routes.HOME));
 
   return (
-    <AuthTemplate>
+    <AuthPageTemplate>
       <SignInForm onSignIn={onSignIn} />
-    </AuthTemplate>
+    </AuthPageTemplate>
   );
 };
 
