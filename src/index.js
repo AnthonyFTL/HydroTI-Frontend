@@ -4,9 +4,18 @@ import reportWebVitals from "./reportWebVitals";
 
 import Router from "./router/Router";
 
+import { applyMiddleware, createStore } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import reducer from "./store/reducers";
+
+const store = createStore(reducer, applyMiddleware(thunk));
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router />
+    <Provider store={store}>
+      <Router />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import WithShadow from "../../../hoc/WithShadow";
 import RoleRadioButtons from "../RoleRadioButtons";
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSignUp }) => {
   const styles = useStyles();
 
   const [role, setRole] = useState("");
@@ -23,7 +24,7 @@ const SignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ role, email, password });
+    onSignUp({ role, email, password });
   };
 
   return (
@@ -46,12 +47,20 @@ const SignUpForm = () => {
           onChange={setPassword}
           fullWidth
         />
-        <Button variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary">
           Sign Up
         </Button>
       </form>
     </WithShadow>
   );
+};
+
+SignUpForm.propTypes = {
+  onSignUp: PropTypes.func,
+};
+
+SignUpForm.defaultProps = {
+  onSignUp: () => {},
 };
 
 export default SignUpForm;

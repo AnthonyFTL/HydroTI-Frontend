@@ -1,0 +1,2 @@
+export const SIGN_IN_STARTED = "SIGN_IN_STARTED";
+export const SIGN_IN_SUCCEEDED = "SIGN_IN_SUCCEEDED";
