@@ -1,5 +1,7 @@
 import {
   SIGN_IN_CLEAR_ERROR_MESSAGE,
+  SIGN_IN_FAILED,
+  SIGN_IN_RESET_STATE,
   SIGN_IN_SHOW_ERROR_MESSAGE,
   SIGN_IN_STARTED,
   SIGN_IN_SUCCEEDED,
@@ -16,6 +18,7 @@ export const requestSignIn = (data) => async (dispatch) => {
     saveUserDetails(userDetails);
     return true;
   } catch (error) {
+    dispatch({ type: SIGN_IN_FAILED });
     dispatch({ type: SIGN_IN_SHOW_ERROR_MESSAGE, payload: { error } });
     return false;
   }
@@ -23,4 +26,8 @@ export const requestSignIn = (data) => async (dispatch) => {
 
 export const closeError = () => ({
   type: SIGN_IN_CLEAR_ERROR_MESSAGE,
+});
+
+export const resetSignInState = () => ({
+  type: SIGN_IN_RESET_STATE,
 });

@@ -10,9 +10,7 @@ export const signUp = async (data) => {
       role: data.role,
     });
   } catch (error) {
-    return Promise.reject(
-      error?.response?.data || "An error has occurred, please try again later"
-    );
+    return Promise.reject("An error has occurred, please try again later");
   }
 };
 
@@ -24,8 +22,6 @@ export const signIn = async (data) => {
     });
     return response.data;
   } catch (error) {
-    return Promise.reject(
-      error?.response?.data || "An error has occurred, please try again later"
-    );
+    return Promise.reject("An error has occurred, please try again later");
   }
 };

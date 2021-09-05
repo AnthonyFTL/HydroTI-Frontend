@@ -1,13 +1,7 @@
 import PropTypes from "prop-types";
 
+import severity from "../../../model/severity";
 import { Alert as MuiAlert, AlertTitle } from "@material-ui/lab";
-
-const SEVERITY = Object.freeze({
-  ERROR: "error",
-  WARNING: "warning",
-  INFO: "info",
-  SUCCESS: "success",
-});
 
 const Alert = ({ title, text, severity, onClose }) => (
   <MuiAlert severity={severity} onClose={onClose}>
@@ -19,13 +13,13 @@ const Alert = ({ title, text, severity, onClose }) => (
 Alert.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string.isRequired,
-  severity: PropTypes.oneOf(Object.values(SEVERITY)),
+  severity: PropTypes.oneOf(Object.values(severity)),
   onClose: PropTypes.func,
 };
 
 Alert.defaultProps = {
   title: "",
-  severity: SEVERITY.INFO,
+  severity: severity.INFO,
   onClose: () => {},
 };
 

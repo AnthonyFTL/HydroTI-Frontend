@@ -1,5 +1,7 @@
 import {
   SIGN_UP_CLEAR_ERROR_MESSAGE,
+  SIGN_UP_FAILED,
+  SIGN_UP_RESET_STATE,
   SIGN_UP_SHOW_ERROR_MESSAGE,
   SIGN_UP_STARTED,
   SIGN_UP_SUCCEEDED,
@@ -12,6 +14,11 @@ const initialState = {
 
 const signUp = (state = initialState, action) => {
   switch (action.type) {
+    case SIGN_UP_RESET_STATE: {
+      return {
+        ...initialState,
+      };
+    }
     case SIGN_UP_STARTED: {
       return {
         ...state,
@@ -19,6 +26,12 @@ const signUp = (state = initialState, action) => {
       };
     }
     case SIGN_UP_SUCCEEDED: {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
+    case SIGN_UP_FAILED: {
       return {
         ...state,
         isLoading: false,

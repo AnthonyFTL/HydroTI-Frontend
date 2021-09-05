@@ -9,7 +9,7 @@ import OutlinedInput from "../../Common/OutlinedInput";
 import routes from "../../../router/routes";
 import AuthFormTemplate from "../../../hoc/templates/auth/AuthFormTemplate";
 
-const SignUpForm = ({ onSignUp }) => {
+const SignUpForm = ({ onSignUp, isLoading }) => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [role, setRole] = useState("");
@@ -27,9 +27,10 @@ const SignUpForm = ({ onSignUp }) => {
       title="Sign Up"
       submitText="Sign Up"
       handleSubmit={handleSubmit}
+      isLoading={isLoading}
       footer={
         <Link to={routes.SIGN_IN}>
-          <Typography variant="button" component="p" align="center">
+          <Typography variant="h6" align="center">
             Go to Sign In
           </Typography>
         </Link>
@@ -84,10 +85,12 @@ const SignUpForm = ({ onSignUp }) => {
 
 SignUpForm.propTypes = {
   onSignUp: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 SignUpForm.defaultProps = {
   onSignUp: () => {},
+  isLoading: false,
 };
 
 export default SignUpForm;

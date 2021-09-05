@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 
-import { makeStyles, Typography } from "@material-ui/core";
+import { LinearProgress, makeStyles, Typography } from "@material-ui/core";
 
 import WithShadow from "../../../WithShadow";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   title: {
+    marginTop: 30,
     marginBottom: 30,
   },
   card: {
@@ -34,18 +35,25 @@ const AuthFormTemplate = ({
   handleSubmit,
   children,
   footer,
+  isLoading,
 }) => {
   const styles = useStyles();
 
   return (
     <WithShadow className={styles.card}>
+      {isLoading && <LinearProgress />}
       <Typography className={styles.title} variant="h5" align="center">
         {title}
       </Typography>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         {children}
         <div className={styles.button}>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+          >
             {submitText}
           </Button>
         </div>
@@ -61,12 +69,14 @@ AuthFormTemplate.propTypes = {
   handleSubmit: PropTypes.func,
   children: PropTypes.node.isRequired,
   footer: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 AuthFormTemplate.defaultProps = {
   title: "",
   handleSubmit: () => {},
   footer: null,
+  isLoading: false,
 };
 
 export default AuthFormTemplate;

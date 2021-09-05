@@ -1,22 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import SignUpForm from "../../../components/auth/SignUpForm";
-
-import { closeError, requestSignUp } from "../../../store/actions/auth/signup";
 import AuthPageTemplate from "../../../hoc/templates/auth/AuthPageTemplate";
-import routes from "../../../router/routes";
+import SignUpConfirmation from "../../../components/auth/SignUpConfirmation";
 
-const SignUp = () => {
-  const { error: errorMessage } = useSelector((state) => state.auth.signUp);
+import {
+  closeError,
+  requestSignUp,
+  resetSignUpState,
+} from "../../../store/actions/auth/signup";
 
-  const dispatch = useDispatch();
-  const history = useHistory();
+const SignUp = ({ errorMessage, isLoading, dispatch }) => {
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  useEffect(() => () => dispatch(resetSignUpState()), []);
 
   const onSignUp = (data) =>
-    dispatch(requestSignUp(data)).then(
-      (succeeded) => succeeded && history.push(routes.SIGN_IN)
-    );
+    dispatch(requestSignUp(data)).then((succeeded) => {
+      succeeded && setShowConfirmation(true);
+    });
 
   const onErrorMessageClose = () => dispatch(closeError());
 
@@ -25,9 +30,24 @@ const SignUp = () => {
       errorMessage={errorMessage}
       onErrorMessageClose={onErrorMessageClose}
     >
-      <SignUpForm onSignUp={onSignUp} />
+      {showConfirmation ? (
+        <SignUpConfirmation />
+      ) : (
+        <SignUpForm onSignUp={onSignUp} isLoading={isLoading} />
+      )}
     </AuthPageTemplate>
   );
 };
 
-export default SignUp;
+SignUp.propTypes = {
+  errorMessage: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { error, isLoading } = state.auth.signUp;
+  return { errorMessage: error, isLoading };
+};
+
+export default connect(mapStateToProps)(SignUp);

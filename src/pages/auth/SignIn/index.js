@@ -1,17 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import SignInForm from "../../../components/auth/SignInForm";
-
-import { closeError, requestSignIn } from "../../../store/actions/auth/signin";
 import AuthPageTemplate from "../../../hoc/templates/auth/AuthPageTemplate";
 import routes from "../../../router/routes";
 
-const SignIn = () => {
-  const { error: errorMessage } = useSelector((state) => state.auth.signIn);
+import {
+  closeError,
+  requestSignIn,
+  resetSignInState,
+} from "../../../store/actions/auth/signin";
 
-  const dispatch = useDispatch();
+const SignIn = ({ errorMessage, isLoading, dispatch }) => {
   const history = useHistory();
+
+  useEffect(() => () => dispatch(resetSignInState()), []);
 
   const onSignIn = (data) =>
     dispatch(requestSignIn(data)).then(
@@ -25,9 +30,20 @@ const SignIn = () => {
       errorMessage={errorMessage}
       onErrorMessageClose={onErrorMessageClose}
     >
-      <SignInForm onSignIn={onSignIn} />
+      <SignInForm onSignIn={onSignIn} isLoading={isLoading} />
     </AuthPageTemplate>
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  errorMessage: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { error, isLoading } = state.auth.signIn;
+  return { errorMessage: error, isLoading };
+};
+
+export default connect(mapStateToProps)(SignIn);

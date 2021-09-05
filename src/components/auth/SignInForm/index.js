@@ -8,7 +8,7 @@ import OutlinedInput from "../../Common/OutlinedInput";
 import routes from "../../../router/routes";
 import AuthFormTemplate from "../../../hoc/templates/auth/AuthFormTemplate";
 
-const SignInForm = ({ onSignIn }) => {
+const SignInForm = ({ onSignIn, isLoading }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,9 +22,10 @@ const SignInForm = ({ onSignIn }) => {
       title="Sign In"
       submitText="Sign In"
       handleSubmit={handleSubmit}
+      isLoading={isLoading}
       footer={
         <Link to={routes.SIGN_UP}>
-          <Typography variant="button" component="p" align="center">
+          <Typography variant="h6" align="center">
             Go to Sign Up
           </Typography>
         </Link>
@@ -53,10 +54,12 @@ const SignInForm = ({ onSignIn }) => {
 
 SignInForm.propTypes = {
   onSignIn: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 SignInForm.defaultProps = {
   onSignIn: () => {},
+  isLoading: false,
 };
 
 export default SignInForm;
