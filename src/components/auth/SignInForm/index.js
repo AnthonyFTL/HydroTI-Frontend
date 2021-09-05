@@ -8,13 +8,35 @@ import OutlinedInput from "../../Common/OutlinedInput";
 import routes from "../../../router/routes";
 import AuthFormTemplate from "../../../hoc/templates/auth/AuthFormTemplate";
 
+import validate, { validateEmail, validatePassword } from "./validations";
+
+const initialErrors = { email: [], password: [] };
+
 const SignInForm = ({ onSignIn, isLoading }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errors, setErrors] = useState(initialErrors);
+
+  const onEmailChange = (value) => {
+    setEmail(value);
+    const errors = validateEmail(value);
+    setErrors((val) => ({ ...val, email: errors }));
+  };
+
+  const onPasswordChange = (value) => {
+    setPassword(value);
+    const errors = validatePassword(value);
+    setErrors((val) => ({ ...val, password: errors }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignIn({ email, password });
+
+    const result = validate({ email, password });
+
+    if (!result.hasError) onSignIn({ email, password });
+    else setErrors((val) => ({ ...val, ...result.errors }));
   };
 
   return (
@@ -23,6 +45,7 @@ const SignInForm = ({ onSignIn, isLoading }) => {
       submitText="Sign In"
       handleSubmit={handleSubmit}
       isLoading={isLoading}
+      disabled={Object.values(errors).some((e) => e.length > 0)}
       footer={
         <Link to={routes.SIGN_UP}>
           <Typography variant="h6" align="center">
@@ -36,17 +59,21 @@ const SignInForm = ({ onSignIn, isLoading }) => {
         helperTextId="sign-in-email-helper-text"
         label="Email"
         value={email}
-        onChange={setEmail}
+        onChange={onEmailChange}
         fullWidth
+        hasError={errors.email.length > 0}
+        errorMessage={errors.email[0]}
       />
       <OutlinedInput
         id="sign-in-password"
         helperTextId="sign-in-password-helper-text"
         label="Password"
         value={password}
-        onChange={setPassword}
+        onChange={onPasswordChange}
         fullWidth
         type="password"
+        hasError={errors.password.length > 0}
+        errorMessage={errors.password[0]}
       />
     </AuthFormTemplate>
   );

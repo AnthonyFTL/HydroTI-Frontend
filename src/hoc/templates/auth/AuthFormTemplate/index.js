@@ -36,6 +36,7 @@ const AuthFormTemplate = ({
   children,
   footer,
   isLoading,
+  disabled,
 }) => {
   const styles = useStyles();
 
@@ -52,6 +53,7 @@ const AuthFormTemplate = ({
             type="submit"
             variant="contained"
             color="primary"
+            disabled={disabled}
             size="large"
           >
             {submitText}
@@ -70,6 +72,7 @@ AuthFormTemplate.propTypes = {
   children: PropTypes.node.isRequired,
   footer: PropTypes.node,
   isLoading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 AuthFormTemplate.defaultProps = {
@@ -77,6 +80,7 @@ AuthFormTemplate.defaultProps = {
   handleSubmit: () => {},
   footer: null,
   isLoading: false,
+  disabled: false,
 };
 
 export default AuthFormTemplate;

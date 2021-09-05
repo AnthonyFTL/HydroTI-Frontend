@@ -2,7 +2,9 @@ describe("As an user I want to register in the application to enter the plattfor
   it("Should create the user correctly", () => {
     cy.intercept("POST", "http://localhost:8080/api/users", {}).as("signUp");
     cy.visit("http://localhost:3000/sign-up");
-    cy.get("input[name=role]").check("ROLE_IRRIGATION_MANAGER",{force: true});
+    cy.get("input[name=role]").check("ROLE_IRRIGATION_MANAGER", {
+      force: true,
+    });
     cy.get("input[id=sign-up-name]").type("name");
     cy.get("input[id=sign-up-lastname]").type("lastname");
     cy.get("input[id=sign-up-email]").type("mail@mail.com");

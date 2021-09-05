@@ -26,15 +26,18 @@ const useStyles = makeStyles({
   },
 });
 
-const RoleRadioButton = ({ label, src, checked, ...rest }) => {
+const RoleRadioButton = ({ label, src, checked, hasError, ...rest }) => {
   const styles = useStyles();
   const theme = useTheme();
 
+  const shadowColor = hasError
+    ? theme.palette.error.main
+    : checked
+    ? theme.palette.primary.light
+    : "";
+
   return (
-    <WithShadow
-      color={checked ? theme.palette.primary.light : ""}
-      className={styles.card}
-    >
+    <WithShadow color={shadowColor} className={styles.card}>
       <div className={styles.roleRadioButton}>
         <label>
           <input
@@ -55,10 +58,12 @@ RoleRadioButton.propTypes = {
   label: PropTypes.string.isRequired,
   src: PropTypes.any.isRequired,
   checked: PropTypes.bool,
+  hasError: PropTypes.bool,
 };
 
 RoleRadioButton.defaultProps = {
   checked: false,
+  hasError: false,
 };
 
 export default RoleRadioButton;
