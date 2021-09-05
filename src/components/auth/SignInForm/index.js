@@ -41,15 +41,15 @@ const SignInForm = ({ onSignIn, isLoading }) => {
 
   return (
     <AuthFormTemplate
-      title="Sign In"
-      submitText="Sign In"
+      title="Iniciar Sesión"
+      submitText="Ingresar"
       handleSubmit={handleSubmit}
       isLoading={isLoading}
       disabled={Object.values(errors).some((e) => e.length > 0)}
       footer={
         <Link to={routes.SIGN_UP}>
           <Typography variant="h6" align="center">
-            Go to Sign Up
+            Regístrate
           </Typography>
         </Link>
       }
@@ -57,7 +57,7 @@ const SignInForm = ({ onSignIn, isLoading }) => {
       <OutlinedInput
         id="sign-in-email"
         helperTextId="sign-in-email-helper-text"
-        label="Email"
+        label="Correo electrónico"
         value={email}
         onChange={onEmailChange}
         fullWidth
@@ -67,7 +67,7 @@ const SignInForm = ({ onSignIn, isLoading }) => {
       <OutlinedInput
         id="sign-in-password"
         helperTextId="sign-in-password-helper-text"
-        label="Password"
+        label="Contraseña"
         value={password}
         onChange={onPasswordChange}
         fullWidth

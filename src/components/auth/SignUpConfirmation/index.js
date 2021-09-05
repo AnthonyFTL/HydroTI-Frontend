@@ -26,7 +26,8 @@ const SignUpConfirmation = () => {
     <WithShadow className={styles.card}>
       <div id="sign-up-confirmation">
         <Typography variant="h6" align="center">
-          Your account has been created, please sign in to use the platform.
+          Su cuenta ha sido creada, por favor incie sesión para usar la
+          plataforma.
         </Typography>
         <img
           src={signUpConfirmationSVG}
@@ -35,7 +36,7 @@ const SignUpConfirmation = () => {
         />
         <Link to={routes.SIGN_IN}>
           <Typography variant="h6" component="p" align="center">
-            Go to Sign In
+            Ingresar
           </Typography>
         </Link>
       </div>

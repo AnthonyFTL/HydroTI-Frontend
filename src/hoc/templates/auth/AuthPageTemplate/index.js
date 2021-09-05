@@ -34,7 +34,11 @@ const AuthPageTemplate = ({ children, errorMessage, onErrorMessageClose }) => {
   return (
     <div className={styles.page}>
       <div className={styles.appBar}>
-        <AppBar position="static" color="default">
+        <AppBar
+          position="static"
+          color="default"
+          style={{ backgroundColor: "rgba(255,255,255,.9)" }}
+        >
           <Toolbar variant="dense">
             <Typography variant="h6" className={styles.appBarTitle}>
               HydroTI

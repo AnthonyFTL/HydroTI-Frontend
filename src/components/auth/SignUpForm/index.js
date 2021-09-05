@@ -15,6 +15,7 @@ import validate, {
   validateEmail,
   validatePassword,
   validatePasswordConfirmation,
+  validateLastname,
 } from "./validations";
 
 const initialErrors = {
@@ -50,7 +51,7 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
 
   const onLastnameChange = (value) => {
     setLastname(value);
-    const lastnameErrors = validateName(value);
+    const lastnameErrors = validateLastname(value);
     setErrors((val) => ({ ...val, lastname: lastnameErrors }));
   };
 
@@ -96,15 +97,15 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
 
   return (
     <AuthFormTemplate
-      title="Sign Up"
-      submitText="Sign Up"
+      title="Registro Nuevo Usuario"
+      submitText="Registrar"
       handleSubmit={handleSubmit}
       isLoading={isLoading}
       disabled={Object.values(errors).some((e) => e.length > 0)}
       footer={
         <Link to={routes.SIGN_IN}>
           <Typography variant="h6" align="center">
-            Go to Sign In
+            Inciar Sesión
           </Typography>
         </Link>
       }
@@ -118,7 +119,7 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
       <OutlinedInput
         id="sign-up-name"
         helperTextId="sign-up-name-helper-text"
-        label="Name"
+        label="Nombres"
         value={name}
         onChange={onNameChange}
         fullWidth
@@ -128,7 +129,7 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
       <OutlinedInput
         id="sign-up-lastname"
         helperTextId="sign-up-lastname-helper-text"
-        label="Last name"
+        label="Apellidos"
         value={lastname}
         onChange={onLastnameChange}
         fullWidth
@@ -138,7 +139,7 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
       <OutlinedInput
         id="sign-up-email"
         helperTextId="sign-up-email-helper-text"
-        label="Email"
+        label="Correo electrónico"
         value={email}
         onChange={onEmailChange}
         fullWidth
@@ -148,7 +149,7 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
       <OutlinedInput
         id="sign-up-password"
         helperTextId="sign-up-password-helper-text"
-        label="Password"
+        label="Contraseña"
         value={password}
         onChange={onPasswordChange}
         fullWidth
@@ -159,7 +160,7 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
       <OutlinedInput
         id="sign-up-password-confirmation"
         helperTextId="sign-up-password-confirmation-helper-text"
-        label="Password confirmation"
+        label="Confirmar contraseña"
         value={passwordConfirmation}
         onChange={onPasswordConfirmationChange}
         fullWidth

@@ -1,15 +1,13 @@
 import isEmpty from "validator/es/lib/isEmpty";
-import isEmail from "validator/es/lib/isEmail";
 
 export const validateEmail = (email) => {
   const errors = [];
-  isEmpty(email) && errors.push("The email field is required");
-  !isEmail(email) && errors.push("The email format is not valid");
+  isEmpty(email) && errors.push("Ingrese correo electrónico");
   return errors;
 };
 export const validatePassword = (password) => {
   const errors = [];
-  isEmpty(password) && errors.push("The password field is required");
+  isEmpty(password) && errors.push("Ingrese contraseña");
   return errors;
 };
 

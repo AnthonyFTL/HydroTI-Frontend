@@ -26,7 +26,7 @@ const RoleRadioButtons = ({ value, onChange, hasError, errorMessage }) => {
     <div>
       <div className={styles.roleRadioButtons}>
         <RoleRadioButton
-          label="irrigation manager"
+          label="encargado de riego"
           name="role"
           value={role.ROLE_IRRIGATION_MANAGER}
           checked={value === role.ROLE_IRRIGATION_MANAGER}
@@ -35,7 +35,7 @@ const RoleRadioButtons = ({ value, onChange, hasError, errorMessage }) => {
           hasError={hasError}
         />
         <RoleRadioButton
-          label="irrigation director"
+          label="jefe de riego"
           name="role"
           value={role.ROLE_IRRIGATION_CHIEF}
           checked={value === role.ROLE_IRRIGATION_CHIEF}
@@ -46,7 +46,13 @@ const RoleRadioButtons = ({ value, onChange, hasError, errorMessage }) => {
       </div>
       {hasError && (
         <div className={styles.errorMessage}>
-          <Typography variant="caption">{errorMessage}</Typography>
+          <Typography
+            id="sign-up-role-helper-text"
+            component="p"
+            variant="caption"
+          >
+            {errorMessage}
+          </Typography>
         </div>
       )}
     </div>
