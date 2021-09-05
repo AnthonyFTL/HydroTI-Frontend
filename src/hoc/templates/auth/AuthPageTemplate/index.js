@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import authBackground from "../../../../assets/auth-background.jpg";
 import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import Alert from "../../../../components/Common/Alert";
 
 const useStyles = makeStyles({
   page: {
@@ -22,9 +23,12 @@ const useStyles = makeStyles({
   appBarTitle: {
     flexGrow: 1,
   },
+  errorMessage: {
+    margin: 10,
+  },
 });
 
-const AuthPageTemplate = ({ children }) => {
+const AuthPageTemplate = ({ children, errorMessage, onErrorMessageClose }) => {
   const styles = useStyles();
 
   return (
@@ -38,6 +42,15 @@ const AuthPageTemplate = ({ children }) => {
           </Toolbar>
         </AppBar>
       </div>
+      {errorMessage && (
+        <div className={styles.errorMessage}>
+          <Alert
+            severity="error"
+            text={errorMessage}
+            onClose={onErrorMessageClose}
+          />
+        </div>
+      )}
       <div className={styles.body}>{children}</div>
     </div>
   );
@@ -45,10 +58,14 @@ const AuthPageTemplate = ({ children }) => {
 
 AuthPageTemplate.propTypes = {
   children: PropTypes.node,
+  errorMessage: PropTypes.string,
+  onErrorMessageClose: PropTypes.func,
 };
 
 AuthPageTemplate.defaultProps = {
   children: null,
+  errorMessage: "",
+  onErrorMessageClose: () => {},
 };
 
 export default AuthPageTemplate;

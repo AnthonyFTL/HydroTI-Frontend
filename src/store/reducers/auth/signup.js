@@ -1,7 +1,13 @@
-import { SIGN_UP_STARTED, SIGN_UP_SUCCEEDED } from "../../types/auth/signup";
+import {
+  SIGN_UP_CLEAR_ERROR_MESSAGE,
+  SIGN_UP_SHOW_ERROR_MESSAGE,
+  SIGN_UP_STARTED,
+  SIGN_UP_SUCCEEDED,
+} from "../../types/auth/signup";
 
 const initialState = {
   isLoading: false,
+  error: null,
 };
 
 const signUp = (state = initialState, action) => {
@@ -16,6 +22,18 @@ const signUp = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    }
+    case SIGN_UP_SHOW_ERROR_MESSAGE: {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+    case SIGN_UP_CLEAR_ERROR_MESSAGE: {
+      return {
+        ...state,
+        error: null,
       };
     }
     default: {
