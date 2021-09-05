@@ -43,7 +43,7 @@ const AuthPageTemplate = ({ children, errorMessage, onErrorMessageClose }) => {
         </AppBar>
       </div>
       {errorMessage && (
-        <div className={styles.errorMessage}>
+        <div id="error-alert" className={styles.errorMessage}>
           <Alert
             severity="error"
             text={errorMessage}

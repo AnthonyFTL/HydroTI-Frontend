@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import SignUpForm from "../../../components/auth/SignUpForm";

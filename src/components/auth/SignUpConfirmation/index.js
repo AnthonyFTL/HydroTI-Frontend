@@ -24,19 +24,21 @@ const SignUpConfirmation = () => {
 
   return (
     <WithShadow className={styles.card}>
-      <Typography variant="h6" align="center">
-        Your account has been created, please sign in to use the platform.
-      </Typography>
-      <img
-        src={signUpConfirmationSVG}
-        alt="confirmation"
-        className={styles.image}
-      />
-      <Link to={routes.SIGN_IN}>
-        <Typography variant="h6" component="p" align="center">
-          Go to Sign In
+      <div id="sign-up-confirmation">
+        <Typography variant="h6" align="center">
+          Your account has been created, please sign in to use the platform.
         </Typography>
-      </Link>
+        <img
+          src={signUpConfirmationSVG}
+          alt="confirmation"
+          className={styles.image}
+        />
+        <Link to={routes.SIGN_IN}>
+          <Typography variant="h6" component="p" align="center">
+            Go to Sign In
+          </Typography>
+        </Link>
+      </div>
     </WithShadow>
   );
 };
