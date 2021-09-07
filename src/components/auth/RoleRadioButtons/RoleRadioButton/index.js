@@ -1,7 +1,7 @@
 import { makeStyles, Typography, useTheme } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import WithShadow from "../../../../hoc/WithShadow";
+import WithShadow from "../../../../hoc/common/WithShadow";
 
 const useStyles = makeStyles({
   card: {
@@ -33,7 +33,7 @@ const RoleRadioButton = ({ label, src, checked, hasError, ...rest }) => {
   const shadowColor = hasError
     ? theme.palette.error.main
     : checked
-    ? theme.palette.primary.light
+    ? theme.palette.primary.dark
     : "";
 
   return (

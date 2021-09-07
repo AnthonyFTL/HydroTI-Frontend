@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import SignInForm from "../../../components/auth/SignInForm";
-import AuthPageTemplate from "../../../hoc/templates/auth/AuthPageTemplate";
+import AuthPageTemplate from "../../../hoc/auth/AuthPageTemplate";
 import routes from "../../../router/routes";
 
 import {

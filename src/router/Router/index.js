@@ -3,6 +3,7 @@ import routes from "../routes";
 
 import SignIn from "../../pages/auth/SignIn";
 import SignUp from "../../pages/auth/SignUp";
+import Home from "../../pages/Home";
 
 const Router = () => (
   <BrowserRouter>
@@ -12,7 +13,7 @@ const Router = () => (
       </Route>
       <Route path={routes.SIGN_IN} component={SignIn} />
       <Route path={routes.SIGN_UP} component={SignUp} />
-      <Route path={routes.HOME} component={null} />
+      <Route path={routes.HOME} component={Home} />
     </Switch>
   </BrowserRouter>
 );
