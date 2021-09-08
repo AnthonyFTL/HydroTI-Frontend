@@ -7,8 +7,12 @@ import WifiIcon from "@material-ui/icons/Wifi";
 import ViewQuiltIcon from "@material-ui/icons/ViewQuilt";
 
 import routes from "../../../router/routes";
+import role from "../../../model/role";
 
 const withDrawer = (Component) => (props) => {
+  const username = "Reiner Braun";
+  const userRole = role.ROLE_IRRIGATION_CHIEF;
+
   const location = useLocation();
   const history = useHistory();
 
@@ -34,7 +38,7 @@ const withDrawer = (Component) => (props) => {
   ];
 
   return (
-    <Drawer options={options}>
+    <Drawer options={options} username={username} userRole={userRole}>
       <Component {...props} />
     </Drawer>
   );

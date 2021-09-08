@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Drawer = ({ options, children }) => {
+const Drawer = ({ options, children, username, userRole }) => {
   const styles = useStyles();
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
@@ -108,7 +108,7 @@ const Drawer = ({ options, children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Profile />
+          <Profile username={username} userRole={userRole} />
         </Toolbar>
       </AppBar>
       <nav aria-label="navigation items" className={styles.drawer}>
@@ -151,6 +151,8 @@ const Drawer = ({ options, children }) => {
 Drawer.propTypes = {
   options: PropTypes.array.isRequired,
   children: PropTypes.node,
+  username: PropTypes.string.isRequired,
+  userRole: PropTypes.string.isRequired,
 };
 
 Drawer.defaultProps = {
