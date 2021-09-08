@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { makeStyles } from "@material-ui/core";
+import { Divider, makeStyles, Typography } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import MuiDrawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,6 +12,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import List from "./List";
 import Profile from "./Profile";
+import { Link } from "react-router-dom";
+
+import routes from "../../../router/routes";
 
 const width = 250;
 
@@ -52,11 +55,44 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  drawerHeader: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    ...theme.mixins.toolbar,
+  },
+  drawerBody: {
+    display: "flex",
+    height: "100vh",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.secondary.main,
+  },
 }));
 
-const Drawer = () => {
+const Drawer = ({ options, active, onItemClick }) => {
   const styles = useStyles();
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+
+  const DrawerBody = (
+    <div className={styles.drawerBody}>
+      <div>
+        <div className={styles.drawerHeader}>
+          <Typography variant="h6">HydroTI</Typography>
+        </div>
+        <Divider />
+        <List options={options} active={active} onItemClick={onItemClick} />
+      </div>
+      <Typography variant="h6" align="center" style={{ marginBottom: 10 }}>
+        <Link to={routes.SIGN_IN} className={styles.link}>
+          Cerrar Sesión
+        </Link>
+      </Typography>
+    </div>
+  );
 
   return (
     <div className={styles.root}>
@@ -89,7 +125,7 @@ const Drawer = () => {
               keepMounted: true,
             }}
           >
-            <List />
+            {DrawerBody}
           </MuiDrawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -100,7 +136,7 @@ const Drawer = () => {
             variant="permanent"
             open
           >
-            <List />
+            {DrawerBody}
           </MuiDrawer>
         </Hidden>
       </nav>
@@ -113,8 +149,9 @@ const Drawer = () => {
 };
 
 Drawer.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.array,
   active: PropTypes.string,
+  onItemClick: PropTypes.func,
 };
 
 export default Drawer;
