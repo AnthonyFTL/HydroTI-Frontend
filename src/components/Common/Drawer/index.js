@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Drawer = ({ options, active, onItemClick }) => {
+const Drawer = ({ options, children }) => {
   const styles = useStyles();
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
@@ -84,7 +84,7 @@ const Drawer = ({ options, active, onItemClick }) => {
           <Typography variant="h6">HydroTI</Typography>
         </div>
         <Divider />
-        <List options={options} active={active} onItemClick={onItemClick} />
+        <List options={options} />
       </div>
       <Typography variant="h6" align="center" style={{ marginBottom: 10 }}>
         <Link to={routes.SIGN_IN} className={styles.link}>
@@ -142,16 +142,19 @@ const Drawer = ({ options, active, onItemClick }) => {
       </nav>
       <main className={styles.main}>
         <div className={styles.toolbarTheme} />
-        hello
+        {children}
       </main>
     </div>
   );
 };
 
 Drawer.propTypes = {
-  options: PropTypes.array,
-  active: PropTypes.string,
-  onItemClick: PropTypes.func,
+  options: PropTypes.array.isRequired,
+  children: PropTypes.node,
+};
+
+Drawer.defaultProps = {
+  children: null,
 };
 
 export default Drawer;

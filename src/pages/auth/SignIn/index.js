@@ -20,7 +20,7 @@ const SignIn = ({ errorMessage, isLoading, dispatch }) => {
 
   const onSignIn = (data) =>
     dispatch(requestSignIn(data)).then(
-      (succeeded) => succeeded && history.push(routes.HOME)
+      (succeeded) => succeeded && history.push(routes.LOCATIONS)
     );
 
   const onErrorMessageClose = () => dispatch(closeError());

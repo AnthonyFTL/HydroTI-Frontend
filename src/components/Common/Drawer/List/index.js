@@ -5,16 +5,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-const List = ({ options, active, onItemClick }) => {
+const List = ({ options }) => {
   return (
     <MuiList>
-      {options.map(({ icon, text }) => (
-        <ListItem
-          button
-          key={text}
-          selected={active === text}
-          onClick={() => onItemClick(text)}
-        >
+      {options.map(({ isActive, icon, text, onClick }) => (
+        <ListItem button key={text} selected={isActive} onClick={onClick}>
           <ListItemIcon>{icon}</ListItemIcon>
           <ListItemText primary={text} />
         </ListItem>
@@ -26,12 +21,12 @@ const List = ({ options, active, onItemClick }) => {
 List.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
+      isActive: PropTypes.bool.isRequired,
       icon: PropTypes.node.isRequired,
       text: PropTypes.string.isRequired,
+      onClick: PropTypes.func.isRequired,
     })
   ),
-  active: PropTypes.string.isRequired,
-  onItemClick: PropTypes.func.isRequired,
 };
 
 List.defaultProps = {

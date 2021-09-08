@@ -2,7 +2,9 @@ const routes = Object.freeze({
   EMPTY: "/",
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
-  HOME: "/home",
+  LOCATIONS: "/locations",
+  DEVICES: "/devices",
+  REPORTS: "/reports",
 });
 
 export default routes;
