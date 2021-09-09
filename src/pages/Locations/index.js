@@ -1,44 +1,56 @@
-import Box from "@material-ui/core/Box";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import Table from "../../components/Locations/Table";
 import Filters from "../../components/Locations/Filters";
+import Header from "../../components/Locations/Header";
+
+import Box from "@material-ui/core/Box";
+
+import {
+  changeFilterValue,
+  getLocations,
+  locationsResetState,
+} from "../../store/actions/locations";
 
 import Location from "../../model/Location";
-import locationState from "../../model/state";
 
-const Locations = () => {
-  const data = [
-    new Location(
-      1,
-      "location 1",
-      "loc. district 1",
-      locationState.SUSPENDED,
-      "loc. connected devices 1"
-    ),
-    new Location(
-      2,
-      "location 2",
-      "loc. district 2",
-      locationState.DISCONNECTED,
-      "loc. connected devices 2"
-    ),
-    new Location(
-      3,
-      "location 3",
-      "loc. district 3",
-      locationState.ACTIVE,
-      "loc. connected devices 3"
-    ),
-  ];
+const Locations = ({ data, filters, dispatch }) => {
+  useEffect(() => {
+    dispatch(getLocations());
+    return () => dispatch(locationsResetState());
+  }, []);
+
+  const onFilterValueChange = (value) => {
+    dispatch(changeFilterValue(value));
+    dispatch(getLocations());
+  };
 
   return (
     <>
-      <Box marginBottom={3}>
-        <Filters />
+      <Header onAddClick={() => console.log("add")} />
+      <Box marginY={3}>
+        <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
       <Table data={data} />
     </>
   );
 };
 
-export default Locations;
+Locations.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
+  filters: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+Locations.defaultProps = {
+  data: [],
+};
+
+const mapStateToProps = (state) => ({
+  data: state.locations.locations,
+  filters: state.locations.filters,
+});
+
+export default connect(mapStateToProps)(Locations);

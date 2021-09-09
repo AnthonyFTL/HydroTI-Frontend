@@ -1,4 +1,4 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 
 import Grid from "@material-ui/core/Grid";
 
@@ -7,11 +7,12 @@ import OutlinedSelect from "../../Common/OutlinedSelect";
 
 import locationState from "../../../model/state";
 
-const Filters = () => {
-  const [name, setName] = useState("");
-  const [district, setDistrict] = useState("");
-  const [state, setState] = useState("");
-  const [connectedDevices, setConnectedDevices] = useState("");
+const Filters = ({ values, onValueChange }) => {
+  const setName = (value) => onValueChange({ name: value });
+  const setDistrict = (value) => onValueChange({ district: value });
+  const setState = (value) => onValueChange({ state: value });
+  const setConnectedDevices = (value) =>
+    onValueChange({ connectedDevices: value });
 
   return (
     <Grid container spacing={2}>
@@ -20,7 +21,7 @@ const Filters = () => {
           id="locations-filters-name"
           helperTextId="locations-filter-name-helper-text"
           label="Nombres"
-          value={name}
+          value={values.name}
           onChange={setName}
           fullWidth
         />
@@ -30,7 +31,7 @@ const Filters = () => {
           id="locations-filters-district"
           helperTextId="locations-filter-district-helper-text"
           label="Distrito"
-          value={district}
+          value={values.district}
           onChange={setDistrict}
           fullWidth
         />
@@ -41,7 +42,7 @@ const Filters = () => {
           helperTextId="locations-filter-state-helper-text"
           labelId="locations-filter-state-label"
           label="Estado"
-          value={state}
+          value={values.state}
           onChange={setState}
           fullWidth
           options={[
@@ -57,13 +58,27 @@ const Filters = () => {
           id="locations-filters-connected-devices"
           helperTextId="locations-filter-connected-devices-helper-text"
           label="Dispositivos conectados"
-          value={connectedDevices}
+          value={values.connectedDevices}
           onChange={setConnectedDevices}
           fullWidth
         />
       </Grid>
     </Grid>
   );
+};
+
+Filters.propTypes = {
+  values: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    district: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    connectedDevices: PropTypes.string.isRequired,
+  }).isRequired,
+  onValueChange: PropTypes.func,
+};
+
+Filters.defaultProps = {
+  onValueChange: () => {},
 };
 
 export default Filters;
