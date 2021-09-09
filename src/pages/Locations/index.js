@@ -1,4 +1,7 @@
+import Box from "@material-ui/core/Box";
+
 import Table from "../../components/Locations/Table";
+import Filters from "../../components/Locations/Filters";
 
 import Location from "../../model/Location";
 import locationState from "../../model/state";
@@ -28,7 +31,14 @@ const Locations = () => {
     ),
   ];
 
-  return <Table data={data} />;
+  return (
+    <>
+      <Box marginBottom={3}>
+        <Filters />
+      </Box>
+      <Table data={data} />
+    </>
+  );
 };
 
 export default Locations;
