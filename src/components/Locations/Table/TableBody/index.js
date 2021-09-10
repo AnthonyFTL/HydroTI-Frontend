@@ -2,11 +2,13 @@ import PropTypes from "prop-types";
 
 import Location from "../../../../model/location";
 
-import StyledTableRow from "../../../Common/Table/StyledTableRow";
-import StyledTableCell from "../../../Common/Table/StyledTableCell";
 import MuiTableBody from "@material-ui/core/TableBody";
 
+import StyledTableRow from "../../../Common/Table/StyledTableRow";
+import StyledTableCell from "../../../Common/Table/StyledTableCell";
+
 import StateChip from "../../../Common/StateChip";
+import Menu from "./Menu";
 
 const TableBody = ({ data }) => (
   <MuiTableBody>
@@ -19,6 +21,9 @@ const TableBody = ({ data }) => (
           <StateChip state={row.state} />
         </StyledTableCell>
         <StyledTableCell>{row.connectedDevices}</StyledTableCell>
+        <StyledTableCell width="5%">
+          <Menu rowId={row.id.toString()} />
+        </StyledTableCell>
       </StyledTableRow>
     ))}
   </MuiTableBody>
