@@ -24,7 +24,7 @@ const locations = (state = initialState, action) => {
     case LOCATIONS_FETCH_SUCCEEDED: {
       return {
         ...state,
-        locations: [...action.payload.data],
+        locations: action.payload.data,
       };
     }
     case LOCATIONS_CHANGE_FILTER_VALUE: {

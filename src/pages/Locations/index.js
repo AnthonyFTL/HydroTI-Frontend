@@ -1,10 +1,13 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+
+import { connect } from "react-redux";
 
 import Table from "../../components/Locations/Table";
 import Filters from "../../components/Locations/Filters";
 import Header from "../../components/Locations/Header";
+import CreateDialog from "../../components/Locations/CreateDialog";
 
 import Box from "@material-ui/core/Box";
 
@@ -15,8 +18,13 @@ import {
 } from "../../store/actions/locations";
 
 import Location from "../../model/location";
+import routes from "../../router/routes";
 
 const Locations = ({ data, filters, dispatch }) => {
+  const history = useHistory();
+
+  const [createFormIsOpen, setCreateFormIsOpen] = useState();
+
   useEffect(() => {
     dispatch(getLocations());
     return () => dispatch(locationsResetState());
@@ -29,11 +37,19 @@ const Locations = ({ data, filters, dispatch }) => {
 
   return (
     <>
-      <Header onAddClick={() => console.log("add")} />
+      <Header onAddClick={() => setCreateFormIsOpen(true)} />
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
-      <Table data={data} />
+      <Table
+        data={data}
+        onDetailsClick={(id) => history.push(`${routes.LOCATIONS}/${id}`)}
+      />
+      <CreateDialog
+        open={createFormIsOpen}
+        onClose={() => setCreateFormIsOpen(false)}
+        onCreate={(data) => console.log(data)}
+      />
     </>
   );
 };
