@@ -1,8 +1,8 @@
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
 import Details from "./Details";
 import Map from "./Map";
-import { Box } from "@material-ui/core";
 import ConnectedDevices from "./ConnectedDevices";
 
 const Body = () => (

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import Location from "../../../../model/Location";
+import Location from "../../../../model/location";
 
 import MuiTableBody from "@material-ui/core/TableBody";
 

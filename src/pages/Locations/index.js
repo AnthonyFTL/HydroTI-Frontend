@@ -17,7 +17,7 @@ import {
   locationsResetState,
 } from "../../store/actions/locations";
 
-import Location from "../../model/Location";
+import Location from "../../model/location";
 import routes from "../../router/routes";
 
 const Locations = ({ data, filters, dispatch }) => {

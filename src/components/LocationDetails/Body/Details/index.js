@@ -8,7 +8,7 @@ const Details = ({ location, district, lastTime }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} xl={4}>
           <Typography variant="body1" color="secondary">
-            Localizión:
+            Localización:
           </Typography>
           <Typography variant="body1">{location}</Typography>
         </Grid>
