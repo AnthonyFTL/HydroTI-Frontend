@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import Location from "../../../../model/location";
+import Device from "../../../../model/device";
 
 import StyledTableRow from "../../../Common/Table/StyledTableRow";
 import StyledTableCell from "../../../Common/Table/StyledTableCell";
@@ -14,18 +14,18 @@ const TableBody = ({ data }) => (
       <StyledTableRow key={row.id}>
         <StyledTableCell>{row.id}</StyledTableCell>
         <StyledTableCell>{row.name}</StyledTableCell>
-        <StyledTableCell>{row.district}</StyledTableCell>
+        <StyledTableCell>{row.location}</StyledTableCell>
         <StyledTableCell>
           <StateChip state={row.state} />
         </StyledTableCell>
-        <StyledTableCell>{row.connectedDevices}</StyledTableCell>
+        <StyledTableCell>{row.lastDateUsed}</StyledTableCell>
       </StyledTableRow>
     ))}
   </MuiTableBody>
 );
 
 TableBody.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
+  data: PropTypes.arrayOf(PropTypes.instanceOf(Device)),
 };
 
 TableBody.defaultProps = {

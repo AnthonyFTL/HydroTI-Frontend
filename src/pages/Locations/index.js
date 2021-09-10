@@ -14,7 +14,7 @@ import {
   locationsResetState,
 } from "../../store/actions/locations";
 
-import Location from "../../model/Location";
+import Location from "../../model/location";
 
 const Locations = ({ data, filters, dispatch }) => {
   useEffect(() => {

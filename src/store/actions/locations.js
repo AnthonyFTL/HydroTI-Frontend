@@ -4,7 +4,7 @@ import {
   LOCATIONS_RESET_STATE,
 } from "../types/locations";
 
-import Location from "../../model/Location";
+import Location from "../../model/location";
 import locationState from "../../model/state";
 
 const locations = [
