@@ -25,7 +25,7 @@ const locations = (state = initialState, action) => {
     case LOCATIONS_FETCH_SUCCEEDED: {
       return {
         ...state,
-        locations: [...action.payload.data],
+        locations: action.payload.data,
       };
     }
     case LOCATIONS_CHANGE_FILTER_VALUE: {
@@ -38,8 +38,13 @@ const locations = (state = initialState, action) => {
       return {
         ...state,
         locations: state.locations.map((location) => {
-          if (location.id === action.payload.id)
-            location.state = action.payload.state;
+          if (location.id === action.payload.id) {
+            const newLocation = Object.assign(
+              Object.create(Object.getPrototypeOf(location)),
+              location
+            );
+            return Object.assign(newLocation, { state: action.payload.state });
+          }
           return location;
         }),
       };
