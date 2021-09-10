@@ -4,16 +4,15 @@ import Location from "../../../../model/location";
 
 import MuiTableBody from "@material-ui/core/TableBody";
 
-import StyledTableRow from "../../../Common/Table/StyledTableRow";
 import StyledTableCell from "../../../Common/Table/StyledTableCell";
 
-import StateChip from "../../../Common/StateChip";
-import Menu from "./Menu";
+import StateChip from "./StateChip";
+import ClickableRow from "../../../Common/Table/ClickableRow";
 
-const TableBody = ({ data, onStateClick, onDetailsClick }) => (
+const TableBody = ({ data, onDetailsClick }) => (
   <MuiTableBody>
     {data.map((row) => (
-      <StyledTableRow key={row.id}>
+      <ClickableRow key={row.id} onClick={() => onDetailsClick(row.id)}>
         <StyledTableCell>{row.id}</StyledTableCell>
         <StyledTableCell>{row.name}</StyledTableCell>
         <StyledTableCell>{row.district}</StyledTableCell>
@@ -21,27 +20,18 @@ const TableBody = ({ data, onStateClick, onDetailsClick }) => (
           <StateChip state={row.state} />
         </StyledTableCell>
         <StyledTableCell>{row.connectedDevices}</StyledTableCell>
-        <StyledTableCell width="5%">
-          <Menu
-            rowId={row.id.toString()}
-            onStateClick={(state) => onStateClick(row.id, state)}
-            onDetailsClick={() => onDetailsClick(row.id)}
-          />
-        </StyledTableCell>
-      </StyledTableRow>
+      </ClickableRow>
     ))}
   </MuiTableBody>
 );
 
 TableBody.propTypes = {
   data: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
-  onStateClick: PropTypes.func,
   onDetailsClick: PropTypes.func,
 };
 
 TableBody.defaultProps = {
   data: [],
-  onStateClick: () => {},
   onDetailsClick: () => {},
 };
 

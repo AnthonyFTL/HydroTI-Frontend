@@ -11,7 +11,6 @@ const TableHead = () => (
       <StyledTableCell>Distrito</StyledTableCell>
       <StyledTableCell>Estado</StyledTableCell>
       <StyledTableCell>Dispositivos conec.</StyledTableCell>
-      <StyledTableCell />
     </StyledTableRow>
   </MuiTableHead>
 );

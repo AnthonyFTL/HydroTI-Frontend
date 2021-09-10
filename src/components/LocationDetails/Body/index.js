@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
+
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
+import Map from "../../Common/Map";
 import Details from "./Details";
-import Map from "./Map";
 import ConnectedDevices from "./ConnectedDevices";
-import PropTypes from "prop-types";
 
 import LocationDetails from "../../../model/locationDetails";
 

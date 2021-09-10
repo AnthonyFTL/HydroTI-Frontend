@@ -5,26 +5,26 @@ import red from "@material-ui/core/colors/red";
 import indigo from "@material-ui/core/colors/indigo";
 import green from "@material-ui/core/colors/green";
 
-import locationState from "../../../model/state";
+import locationState from "../../../../../model/locationState";
 
 const StateChip = ({ state }) => {
   let label, backgroundColor, color;
 
   switch (state) {
-    case locationState.DISCONNECTED: {
-      label = "Desconectado";
+    case locationState.WITHOUT_CONNECTION: {
+      label = "Sin conexión";
       backgroundColor = red[100];
       color = red[700];
       break;
     }
-    case locationState.SUSPENDED: {
-      label = "Suspendido";
+    case locationState.SUSPENDED_IRRIGATION: {
+      label = "Riego suspendido";
       backgroundColor = indigo[100];
       color = indigo[700];
       break;
     }
-    case locationState.ACTIVE: {
-      label = "Activo";
+    case locationState.IRRIGATION_IN_PROGRESS: {
+      label = "Riego en curso";
       backgroundColor = green[100];
       color = green[700];
       break;
