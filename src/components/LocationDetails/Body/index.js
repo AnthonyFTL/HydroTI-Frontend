@@ -11,10 +11,12 @@ import LocationDetails from "../../../model/locationDetails";
 
 const Body = ({ location }) => (
   <Grid container spacing={4}>
-    <Grid item xs={12} lg={5} xl={4}>
-      <Map />
+    <Grid item xs={12} lg={5}>
+      <Box height={500}>
+        <Map />
+      </Box>
     </Grid>
-    <Grid item xs={12} lg={7} xl={8}>
+    <Grid item xs={12} lg={7}>
       <Details
         location={location.location}
         district={location.district}

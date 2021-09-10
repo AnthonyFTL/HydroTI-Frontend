@@ -5,8 +5,7 @@ import Device from "../../../../model/device";
 import StyledTableRow from "../../../Common/Table/StyledTableRow";
 import StyledTableCell from "../../../Common/Table/StyledTableCell";
 import MuiTableBody from "@material-ui/core/TableBody";
-
-import StateChip from "../../../Common/StateChip";
+import StateChip from "./StateChip";
 
 const TableBody = ({ data }) => (
   <MuiTableBody>

@@ -37,7 +37,7 @@ const OutlinedInput = ({
 
 OutlinedInput.propTypes = {
   id: PropTypes.string.isRequired,
-  helperTextId: PropTypes.string.isRequired,
+  helperTextId: PropTypes.string,
   label: PropTypes.string,
   hasError: PropTypes.bool,
   errorMessage: PropTypes.string,
@@ -47,6 +47,7 @@ OutlinedInput.propTypes = {
 };
 
 OutlinedInput.defaultProps = {
+  helperTextId: "",
   label: "",
   hasError: false,
   errorMessage: "",

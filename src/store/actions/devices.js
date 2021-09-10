@@ -5,7 +5,7 @@ import {
 } from "../types/devices";
 
 import Device from "../../model/device";
-import deviceState from "../../model/state";
+import deviceState from "../../model/deviceState";
 
 const devices = [
   new Device(1, "Disp. de riego", "location 1 ", deviceState.ACTIVE, "ayer"),

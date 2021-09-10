@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import OutlinedInput from "../../Common/OutlinedInput";
 import OutlinedSelect from "../../Common/OutlinedSelect";
 
-import locationState from "../../../model/state";
+import deviceState from "../../../model/deviceState";
 
 const Filters = ({ values, onValueChange }) => {
   const setName = (value) => onValueChange({ name: value });
@@ -33,9 +33,9 @@ const Filters = ({ values, onValueChange }) => {
           onChange={setState}
           fullWidth
           options={[
-            { value: locationState.ACTIVE, label: "Activo" },
-            { value: locationState.DISCONNECTED, label: "Desconectado" },
-            { value: locationState.SUSPENDED, label: "Suspendido" },
+            { value: deviceState.ACTIVE, label: "Activo" },
+            { value: deviceState.DISCONNECTED, label: "Desconectado" },
+            { value: deviceState.SUSPENDED, label: "Suspendido" },
           ]}
         />
       </Grid>
