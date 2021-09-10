@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+
+import { connect } from "react-redux";
 
 import Table from "../../components/Locations/Table";
 import Filters from "../../components/Locations/Filters";
@@ -10,13 +12,17 @@ import Box from "@material-ui/core/Box";
 
 import {
   changeFilterValue,
+  changeState,
   getLocations,
   locationsResetState,
 } from "../../store/actions/locations";
 
 import Location from "../../model/Location";
+import routes from "../../router/routes";
 
 const Locations = ({ data, filters, dispatch }) => {
+  const history = useHistory();
+
   useEffect(() => {
     dispatch(getLocations());
     return () => dispatch(locationsResetState());
@@ -33,7 +39,11 @@ const Locations = ({ data, filters, dispatch }) => {
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
-      <Table data={data} />
+      <Table
+        data={data}
+        onStateClick={(id, state) => dispatch(changeState(id, state))}
+        onDetailsClick={(id) => history.push(`${routes.LOCATIONS}/${id}`)}
+      />
     </>
   );
 };

@@ -5,11 +5,24 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import MenuItem from "@material-ui/core/MenuItem";
 import MuiMenu from "@material-ui/core/Menu";
+import Divider from "@material-ui/core/Divider";
 
-const Menu = ({ rowId }) => {
+import locationState from "../../../../../model/state";
+
+const Menu = ({ rowId, onStateClick, onDetailsClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClose = () => setAnchorEl(null);
+
+  const handleStateClick = (state) => {
+    onStateClick(state);
+    handleClose();
+  };
+
+  const handleDetailsClick = () => {
+    onDetailsClick();
+    handleClose();
+  };
 
   return (
     <div>
@@ -17,7 +30,7 @@ const Menu = ({ rowId }) => {
         aria-label="locations-table-more-options"
         aria-controls={`locations-table-more-options-menu-${rowId}`}
         aria-haspopup="true"
-        onClick={(e) => setAnchorEl(e.currentTarget)}
+        onClick={(event) => setAnchorEl(event.currentTarget)}
       >
         <MoreVertIcon />
       </IconButton>
@@ -28,9 +41,17 @@ const Menu = ({ rowId }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Activar</MenuItem>
-        <MenuItem onClick={handleClose}>Desconectar</MenuItem>
-        <MenuItem onClick={handleClose}>Suspender</MenuItem>
+        <MenuItem onClick={handleDetailsClick}>Ver detalles</MenuItem>
+        <Divider />
+        <MenuItem onClick={() => handleStateClick(locationState.ACTIVE)}>
+          Activar
+        </MenuItem>
+        <MenuItem onClick={() => handleStateClick(locationState.DISCONNECTED)}>
+          Desconectar
+        </MenuItem>
+        <MenuItem onClick={() => handleStateClick(locationState.SUSPENDED)}>
+          Suspender
+        </MenuItem>
       </MuiMenu>
     </div>
   );
@@ -38,6 +59,13 @@ const Menu = ({ rowId }) => {
 
 Menu.propTypes = {
   rowId: PropTypes.string.isRequired,
+  onStateClick: PropTypes.func,
+  onDetailsClick: PropTypes.func,
+};
+
+Menu.defaultProps = {
+  onStateClick: () => {},
+  onDetailsClick: () => {},
 };
 
 export default Menu;

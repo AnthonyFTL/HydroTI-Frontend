@@ -10,7 +10,7 @@ import StyledTableCell from "../../../Common/Table/StyledTableCell";
 import StateChip from "../../../Common/StateChip";
 import Menu from "./Menu";
 
-const TableBody = ({ data }) => (
+const TableBody = ({ data, onStateClick, onDetailsClick }) => (
   <MuiTableBody>
     {data.map((row) => (
       <StyledTableRow key={row.id}>
@@ -22,7 +22,11 @@ const TableBody = ({ data }) => (
         </StyledTableCell>
         <StyledTableCell>{row.connectedDevices}</StyledTableCell>
         <StyledTableCell width="5%">
-          <Menu rowId={row.id.toString()} />
+          <Menu
+            rowId={row.id.toString()}
+            onStateClick={(state) => onStateClick(row.id, state)}
+            onDetailsClick={() => onDetailsClick(row.id)}
+          />
         </StyledTableCell>
       </StyledTableRow>
     ))}
@@ -31,10 +35,14 @@ const TableBody = ({ data }) => (
 
 TableBody.propTypes = {
   data: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
+  onStateClick: PropTypes.func,
+  onDetailsClick: PropTypes.func,
 };
 
 TableBody.defaultProps = {
   data: [],
+  onStateClick: () => {},
+  onDetailsClick: () => {},
 };
 
 export default TableBody;

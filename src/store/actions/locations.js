@@ -1,5 +1,6 @@
 import {
   LOCATIONS_CHANGE_FILTER_VALUE,
+  LOCATIONS_CHANGE_STATE,
   LOCATIONS_FETCH_SUCCEEDED,
   LOCATIONS_RESET_STATE,
 } from "../types/locations";
@@ -39,6 +40,11 @@ export const getLocations = () => (dispatch, getState) => {
     payload: { data: locations },
   });
 };
+
+export const changeState = (id, state) => ({
+  type: LOCATIONS_CHANGE_STATE,
+  payload: { id, state },
+});
 
 export const changeFilterValue = (value) => ({
   type: LOCATIONS_CHANGE_FILTER_VALUE,

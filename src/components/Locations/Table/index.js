@@ -7,21 +7,29 @@ import MuiTable from "@material-ui/core/Table";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 
-const Table = ({ data }) => (
+const Table = ({ data, onStateClick, onDetailsClick }) => (
   <TableContainer component={Paper}>
     <MuiTable>
       <TableHead />
-      <TableBody data={data} />
+      <TableBody
+        data={data}
+        onStateClick={onStateClick}
+        onDetailsClick={onDetailsClick}
+      />
     </MuiTable>
   </TableContainer>
 );
 
 Table.propTypes = {
   data: PropTypes.array,
+  onStateClick: PropTypes.func,
+  onDetailsClick: PropTypes.func,
 };
 
 Table.defaultProps = {
   data: [],
+  onStateClick: () => {},
+  onDetailsClick: () => {},
 };
 
 export default Table;

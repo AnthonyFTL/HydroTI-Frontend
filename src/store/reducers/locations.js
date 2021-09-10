@@ -1,5 +1,6 @@
 import {
   LOCATIONS_CHANGE_FILTER_VALUE,
+  LOCATIONS_CHANGE_STATE,
   LOCATIONS_FETCH_SUCCEEDED,
   LOCATIONS_RESET_STATE,
 } from "../types/locations";
@@ -31,6 +32,16 @@ const locations = (state = initialState, action) => {
       return {
         ...state,
         filters: { ...state.filters, ...action.payload.data },
+      };
+    }
+    case LOCATIONS_CHANGE_STATE: {
+      return {
+        ...state,
+        locations: state.locations.map((location) => {
+          if (location.id === action.payload.id)
+            location.state = action.payload.state;
+          return location;
+        }),
       };
     }
     default: {
