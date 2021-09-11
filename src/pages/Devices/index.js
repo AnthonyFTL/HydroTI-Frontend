@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import Box from "@material-ui/core/Box";
@@ -8,6 +8,7 @@ import Table from "../../components/Devices/Table";
 import Filters from "../../components/Devices/Filters";
 import Header from "../../components/Devices/Header";
 import EditDialog from "../../components/Devices/EditDialog";
+
 import Device from "../../model/device";
 
 import {
@@ -16,11 +17,15 @@ import {
   devicesResetState,
   startEdit,
   endEdit,
+  createDevice,
   editDevice,
   deleteDevice,
 } from "../../store/actions/devices";
+import CreateDialog from "../../components/Devices/CreateDialog";
 
 const Devices = ({ data, editingDevice, filters, dispatch }) => {
+  const [createDialogIsOpen, setCreateDialogIsOpen] = useState();
+
   useEffect(() => {
     dispatch(getDevices());
     return () => dispatch(devicesResetState());
@@ -33,7 +38,7 @@ const Devices = ({ data, editingDevice, filters, dispatch }) => {
 
   return (
     <>
-      <Header onAddClick={() => console.log("add")} />
+      <Header onAddClick={() => setCreateDialogIsOpen(true)} />
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
@@ -47,6 +52,13 @@ const Devices = ({ data, editingDevice, filters, dispatch }) => {
         open={Boolean(editingDevice)}
         onClose={() => dispatch(endEdit())}
         onEdit={(data) => dispatch(editDevice(data))}
+      />
+      <CreateDialog
+        open={createDialogIsOpen}
+        onClose={() => setCreateDialogIsOpen(false)}
+        onCreate={(data) =>
+          dispatch(createDevice(data)).then(() => setCreateDialogIsOpen(false))
+        }
       />
     </>
   );

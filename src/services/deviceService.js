@@ -22,6 +22,14 @@ class DeviceService {
     }
   }
 
+  async deleteDevice(deviceId) {
+    try {
+      await httpClient.delete(`devices/${deviceId}`);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   mapStateToModel = (state) => {
     switch (state) {
       case "INACTIVO": {

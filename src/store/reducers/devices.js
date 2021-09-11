@@ -35,6 +35,12 @@ const devices = (state = initialState, action) => {
         filters: { ...state.filters, ...action.payload.data },
       };
     }
+    case "DEVICES_CREATE_SUCCEEDED": {
+      return {
+        ...state,
+        devices: [...state.devices, action.payload.data],
+      };
+    }
     case "DEVICES_EDIT_SUCCEEDED": {
       const { id, data } = action.payload;
 

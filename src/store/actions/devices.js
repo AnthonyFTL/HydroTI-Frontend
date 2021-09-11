@@ -23,6 +23,23 @@ export const getDevices = () => async (dispatch, getState) => {
   }
 };
 
+export const createDevice = (data) => async (dispatch) => {
+  const newDevice = new Device(
+    Math.random(),
+    data.name,
+    data.location,
+    "ACTIVE",
+    null
+  );
+
+  dispatch({
+    type: "DEVICES_CREATE_SUCCEEDED",
+    payload: {
+      data: newDevice,
+    },
+  });
+};
+
 export const editDevice = (data) => (dispatch) => {
   const newDevice = new Device(
     data.id,
@@ -43,14 +60,17 @@ export const editDevice = (data) => (dispatch) => {
 };
 
 export const deleteDevice = (id) => async (dispatch) => {
-  dispatch({
-    type: "DEVICES_DELETE_SUCCEEDED",
-    payload: {
-      id,
-    },
-  });
-
-  return "hello";
+  try {
+    await DeviceService.deleteDevice(id);
+    dispatch({
+      type: "DEVICES_DELETE_SUCCEEDED",
+      payload: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const startEdit = (id) => ({
