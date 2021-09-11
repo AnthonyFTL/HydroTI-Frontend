@@ -4,29 +4,20 @@ import {
   DEVICES_CHANGE_FILTER_VALUE,
 } from "../types/devices";
 
-import Device from "../../model/device";
-import deviceState from "../../model/deviceState";
+import DeviceService from "../../services/DeviceService";
 
-const devices = [
-  new Device(1, "Disp. de riego", "location 1 ", deviceState.ACTIVE, "ayer"),
-  new Device(2, "Sensor de humedad", "location 2 ", deviceState.ACTIVE, "hoy"),
-  new Device(
-    3,
-    "Dispositivo",
-    "location 3 ",
-    deviceState.DISCONNECTED,
-    "siempre"
-  ),
-];
+export const getDevices = () => async (dispatch, getState) => {
+  try {
+    const devices = await DeviceService.getAllDevices();
+    const filteredDevices = filter(devices, getState().devices.filters);
 
-export const getDevices = () => (dispatch, getState) => {
-  const filters = getState().devices.filters;
-  const filteredDevices = filter(devices, filters);
-
-  dispatch({
-    type: DEVICES_FETCH_SUCCEEDED,
-    payload: { data: filteredDevices },
-  });
+    dispatch({
+      type: DEVICES_FETCH_SUCCEEDED,
+      payload: { data: filteredDevices },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const changeFilterValue = (value) => ({

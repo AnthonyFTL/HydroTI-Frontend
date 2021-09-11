@@ -48,7 +48,7 @@ Devices.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.devices.locations,
+  data: state.devices.devices,
   filters: state.devices.filters,
 });
 

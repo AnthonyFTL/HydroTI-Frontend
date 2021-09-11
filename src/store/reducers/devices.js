@@ -5,7 +5,7 @@ import {
 } from "../types/devices";
 
 const initialState = {
-  locations: [],
+  devices: [],
   filters: {
     name: "",
     location: "",
@@ -23,7 +23,7 @@ const devices = (state = initialState, action) => {
     case DEVICES_FETCH_SUCCEEDED: {
       return {
         ...state,
-        locations: [...action.payload.data],
+        devices: action.payload.data,
       };
     }
     case DEVICES_CHANGE_FILTER_VALUE: {
