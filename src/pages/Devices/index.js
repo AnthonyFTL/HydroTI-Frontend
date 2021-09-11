@@ -7,15 +7,20 @@ import PropTypes from "prop-types";
 import Table from "../../components/Devices/Table";
 import Filters from "../../components/Devices/Filters";
 import Header from "../../components/Devices/Header";
+import EditDialog from "../../components/Devices/EditDialog";
 import Device from "../../model/device";
 
 import {
   changeFilterValue,
   getDevices,
   devicesResetState,
+  startEdit,
+  endEdit,
+  editDevice,
+  deleteDevice,
 } from "../../store/actions/devices";
 
-const Devices = ({ data, filters, dispatch }) => {
+const Devices = ({ data, editingDevice, filters, dispatch }) => {
   useEffect(() => {
     dispatch(getDevices());
     return () => dispatch(devicesResetState());
@@ -32,13 +37,24 @@ const Devices = ({ data, filters, dispatch }) => {
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
-      <Table data={data} />
+      <Table
+        data={data}
+        onEditClick={(id) => dispatch(startEdit(id))}
+        onDeleteClick={(id) => dispatch(deleteDevice(id))}
+      />
+      <EditDialog
+        device={editingDevice}
+        open={Boolean(editingDevice)}
+        onClose={() => dispatch(endEdit())}
+        onEdit={(data) => dispatch(editDevice(data))}
+      />
     </>
   );
 };
 
 Devices.propTypes = {
   data: PropTypes.arrayOf(PropTypes.instanceOf(Device)),
+  editingDevice: PropTypes.instanceOf(Device),
   filters: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
@@ -49,6 +65,7 @@ Devices.defaultProps = {
 
 const mapStateToProps = (state) => ({
   data: state.devices.devices,
+  editingDevice: state.devices.editingDevice,
   filters: state.devices.filters,
 });
 

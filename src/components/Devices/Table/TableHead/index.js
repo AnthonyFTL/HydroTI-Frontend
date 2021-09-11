@@ -11,6 +11,7 @@ const TableHead = () => (
       <StyledTableCell>Ubicacion</StyledTableCell>
       <StyledTableCell>Estado</StyledTableCell>
       <StyledTableCell>Usado por último vez</StyledTableCell>
+      <StyledTableCell width="5%" />
     </StyledTableRow>
   </MuiTableHead>
 );

@@ -7,21 +7,29 @@ import MuiTable from "@material-ui/core/Table";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 
-const Table = ({ data }) => (
+const Table = ({ data, onEditClick, onDeleteClick }) => (
   <TableContainer component={Paper}>
     <MuiTable>
       <TableHead />
-      <TableBody data={data} />
+      <TableBody
+        data={data}
+        onDeleteClick={onDeleteClick}
+        onEditClick={onEditClick}
+      />
     </MuiTable>
   </TableContainer>
 );
 
 Table.propTypes = {
   data: PropTypes.array,
+  onEditClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
 };
 
 Table.defaultProps = {
   data: [],
+  onEditClick: () => {},
+  onDeleteClick: () => {},
 };
 
 export default Table;
