@@ -14,7 +14,7 @@ const Filters = ({ values, onValueChange }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6} lg={3}>
+      <Grid item xs={6} lg={4}>
         <OutlinedInput
           id="devices-filters-name"
           helperTextId="devices-filter-name-helper-text"
@@ -24,7 +24,7 @@ const Filters = ({ values, onValueChange }) => {
           fullWidth
         />
       </Grid>
-      <Grid item xs={6} lg={3}>
+      <Grid item xs={6} lg={4}>
         <OutlinedInput
           id="devices-filters-location"
           helperTextId="devices-filter-location-helper-text"
@@ -34,7 +34,7 @@ const Filters = ({ values, onValueChange }) => {
           fullWidth
         />
       </Grid>{" "}
-      <Grid item xs={6} lg={3}>
+      <Grid item xs={6} lg={4}>
         <OutlinedSelect
           id="devices-filters-state"
           helperTextId="devices-filter-state-helper-text"
