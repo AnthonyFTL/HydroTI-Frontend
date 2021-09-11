@@ -1,37 +1,31 @@
-import { TextField } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
 import PropTypes from "prop-types";
+
+import "./placesAutocomplete.css";
+
 import { usePlacesWidget } from "react-google-autocomplete";
+
+import OutlinedInput from "../OutlinedInput";
+
 const GoogleMapsAPI = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-const PlacesAutocomplete = ({ onPlaceSelected, id, label, fullWidth }) => {
+const PlacesAutocomplete = ({ onPlaceSelected, options, ...rest }) => {
   const { ref } = usePlacesWidget({
     apiKey: GoogleMapsAPI,
     onPlaceSelected,
+    options,
   });
 
-  return (
-    <Autocomplete
-      id={id}
-      fullWidth={fullWidth}
-      ref={ref}
-      renderInput={(params) => (
-        <TextField {...params} label={label} variant="outlined" />
-      )}
-    />
-  );
+  return <OutlinedInput inputRef={ref} {...rest} />;
 };
 
 PlacesAutocomplete.propTypes = {
   onPlaceSelected: PropTypes.func,
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  fullWidth: PropTypes.bool,
+  options: PropTypes.object,
 };
 
 PlacesAutocomplete.defaultProps = {
   onPlaceSelected: () => {},
-  fullWidth: false.valueOf,
+  options: {},
 };
 
 export default PlacesAutocomplete;

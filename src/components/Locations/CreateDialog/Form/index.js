@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 
 import OutlinedInput from "../../../Common/OutlinedInput";
+import PlacesAutocomplete from "../../../Common/PlacesAutocomplete";
 
 const Form = ({ id, onCreate }) => {
   const [name, setName] = useState("");
@@ -12,6 +13,8 @@ const Form = ({ id, onCreate }) => {
     e.preventDefault();
     onCreate({ name });
   };
+
+  const onPlaceSelected = (place) => console.log(place);
 
   return (
     <form id={id} onSubmit={handleSubmit}>
@@ -26,7 +29,18 @@ const Form = ({ id, onCreate }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12}></Grid>
+        <Grid item xs={12}>
+          <PlacesAutocomplete
+            id="places"
+            label="places"
+            fullWidth
+            onPlaceSelected={onPlaceSelected}
+            options={{
+              types: ["address"],
+              componentRestrictions: { country: "pe" },
+            }}
+          />
+        </Grid>
       </Grid>
     </form>
   );

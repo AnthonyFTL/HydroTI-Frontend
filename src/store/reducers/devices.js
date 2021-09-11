@@ -8,6 +8,7 @@ const initialState = {
   locations: [],
   filters: {
     name: "",
+    location: "",
     state: "",
   },
 };

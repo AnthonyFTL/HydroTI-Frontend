@@ -21,10 +21,11 @@ const devices = [
 
 export const getDevices = () => (dispatch, getState) => {
   const filters = getState().devices.filters;
-  console.log(filters);
+  const filteredDevices = filter(devices, filters);
+
   dispatch({
     type: DEVICES_FETCH_SUCCEEDED,
-    payload: { data: devices },
+    payload: { data: filteredDevices },
   });
 };
 
@@ -36,3 +37,14 @@ export const changeFilterValue = (value) => ({
 export const devicesResetState = () => ({
   type: DEVICES_RESET_STATE,
 });
+
+const filter = (devices, filters) => {
+  const name = filters.name;
+  const location = filters.location;
+  const state = filters.state;
+
+  return devices
+    .filter((device) => !name || device.name.includes(name))
+    .filter((device) => !location || device.location.includes(location))
+    .filter((device) => !state || device.state === state);
+};

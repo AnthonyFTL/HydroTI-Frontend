@@ -9,6 +9,7 @@ import deviceState from "../../../model/deviceState";
 
 const Filters = ({ values, onValueChange }) => {
   const setName = (value) => onValueChange({ name: value });
+  const setLocation = (value) => onValueChange({ location: value });
   const setState = (value) => onValueChange({ state: value });
 
   return (
@@ -23,6 +24,16 @@ const Filters = ({ values, onValueChange }) => {
           fullWidth
         />
       </Grid>
+      <Grid item xs={6} lg={3}>
+        <OutlinedInput
+          id="devices-filters-location"
+          helperTextId="devices-filter-location-helper-text"
+          label="Ubicación"
+          value={values.location}
+          onChange={setLocation}
+          fullWidth
+        />
+      </Grid>{" "}
       <Grid item xs={6} lg={3}>
         <OutlinedSelect
           id="devices-filters-state"
@@ -46,6 +57,7 @@ const Filters = ({ values, onValueChange }) => {
 Filters.propTypes = {
   values: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
   }).isRequired,
   onValueChange: PropTypes.func,

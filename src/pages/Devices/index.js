@@ -25,6 +25,7 @@ const Devices = ({ data, filters, dispatch }) => {
     dispatch(changeFilterValue(value));
     dispatch(getDevices());
   };
+
   return (
     <>
       <Header onAddClick={() => console.log("add")} />
