@@ -8,10 +8,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Form from "./Form";
+import Location from "../../../model/location";
 
 const initialErrors = { name: [], location: [] };
 
-const CreateDialog = ({ open, onClose, onCreate }) => {
+const CreateDialog = ({ open, onClose, onCreate, locations }) => {
   const [errors, setErrors] = useState(initialErrors);
 
   const handleClose = () => {
@@ -30,6 +31,7 @@ const CreateDialog = ({ open, onClose, onCreate }) => {
           onCreate={onCreate}
           errors={errors}
           setErrors={setErrors}
+          locations={locations}
         />
       </DialogContent>
       <DialogActions>
@@ -54,12 +56,14 @@ CreateDialog.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   onCreate: PropTypes.func,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
 };
 
 CreateDialog.defaultProps = {
   open: false,
   onClose: () => {},
   onCreate: () => {},
+  locations: [],
 };
 
 export default CreateDialog;

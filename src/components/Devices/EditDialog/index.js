@@ -9,10 +9,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Form from "./Form";
 import Device from "../../../model/device";
+import Location from "../../../model/location";
 
 const initialErrors = { name: [], location: [], state: [] };
 
-const EditDialog = ({ device, open, onClose, onEdit }) => {
+const EditDialog = ({ device, open, onClose, onEdit, locations }) => {
   const [errors, setErrors] = useState(initialErrors);
 
   const handleClose = () => {
@@ -33,6 +34,7 @@ const EditDialog = ({ device, open, onClose, onEdit }) => {
             onEdit={onEdit}
             errors={errors}
             setErrors={setErrors}
+            locations={locations}
           />
         )}
       </DialogContent>
@@ -59,12 +61,14 @@ EditDialog.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   onEdit: PropTypes.func,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
 };
 
 EditDialog.defaultProps = {
   open: false,
   onClose: () => {},
   onEdit: () => {},
+  locations: [],
 };
 
 export default EditDialog;

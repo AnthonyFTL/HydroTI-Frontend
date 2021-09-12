@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 
 import OutlinedInput from "../../../Common/OutlinedInput";
+import OutlinedSelect from "../../../Common/OutlinedSelect";
 
 import Device from "../../../../model/device";
-import OutlinedSelect from "../../../Common/OutlinedSelect";
+import Location from "../../../../model/location";
 import deviceState from "../../../../model/deviceState";
 
 import validate, {
@@ -15,9 +16,9 @@ import validate, {
   validateState,
 } from "./validations";
 
-const EditDevice = ({ id, device, onEdit, errors, setErrors }) => {
+const EditDevice = ({ id, device, onEdit, errors, setErrors, locations }) => {
   const [name, setName] = useState(device.name);
-  const [location, setLocation] = useState(device.location);
+  const [location, setLocation] = useState(device.parkId.toString());
   const [state, setState] = useState(device.state);
 
   const onNameChange = (value) => {
@@ -63,13 +64,18 @@ const EditDevice = ({ id, device, onEdit, errors, setErrors }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <OutlinedInput
+          <OutlinedSelect
             id="edit-device-location"
             helperTextId="edit-device-location-helper-text"
+            labelId="edit-device-location-label"
             label="Ubicación"
             value={location}
             onChange={onLocationChange}
             fullWidth
+            options={locations.map((location) => ({
+              value: location.id.toString(),
+              label: location.name,
+            }))}
             hasError={errors.location.length > 0}
             errorMessage={errors.location[0]}
           />
@@ -103,10 +109,12 @@ EditDevice.propTypes = {
   onEdit: PropTypes.func,
   errors: PropTypes.object.isRequired,
   setErrors: PropTypes.func.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
 };
 
 EditDevice.defaultProps = {
   onEdit: () => {},
+  locations: [],
 };
 
 export default EditDevice;

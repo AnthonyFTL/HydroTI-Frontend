@@ -7,16 +7,29 @@ class DeviceService {
   async getAllDevices() {
     try {
       const response = await httpClient.get("devices");
-      return response.data.map(
-        (device) =>
-          new Device(
-            device.id,
-            device.name,
-            device.location,
-            this.mapStateToModel(device.state),
-            device.lastUseDate
-          )
-      );
+      return response.data.map((device) => this.convertToModel(device));
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async addDevice(name, parkId) {
+    try {
+      const response = await httpClient.post("devices", { name, parkId });
+      return this.convertToModel(response.data);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async editDevice(deviceId, name, parkId, state) {
+    try {
+      const response = await httpClient.put(`/devices/${deviceId}`, {
+        name,
+        parkId,
+        state: this.mapModelToState(state),
+      });
+      return this.convertToModel(response.data);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -28,6 +41,17 @@ class DeviceService {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  convertToModel(device) {
+    return new Device(
+      device.id,
+      device.name,
+      device.location,
+      this.mapStateToModel(device.state),
+      device.lastUseDate,
+      device.parkId
+    );
   }
 
   mapStateToModel = (state) => {

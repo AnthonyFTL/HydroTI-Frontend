@@ -4,41 +4,20 @@ import {
   LOCATIONS_RESET_STATE,
 } from "../types/locations";
 
-import Location from "../../model/location";
-import locationState from "../../model/locationState";
+import LocationService from "../../services/locationService";
 
-const locations = [
-  new Location(
-    1,
-    "location 1",
-    "district 1",
-    locationState.IRRIGATION_IN_PROGRESS,
-    4
-  ),
-  new Location(
-    2,
-    "location 2",
-    "district 2",
-    locationState.SUSPENDED_IRRIGATION,
-    3
-  ),
-  new Location(
-    3,
-    "location 3",
-    "district 3",
-    locationState.WITHOUT_CONNECTION,
-    4
-  ),
-];
+export const getLocations = () => async (dispatch, getState) => {
+  try {
+    const locations = await LocationService.getAllLocations();
+    const filteredLocations = filter(locations, getState().locations.filters);
 
-export const getLocations = () => (dispatch, getState) => {
-  const filters = getState().locations.filters;
-  const filteredLocations = filter(locations, filters);
-
-  dispatch({
-    type: LOCATIONS_FETCH_SUCCEEDED,
-    payload: { data: filteredLocations },
-  });
+    dispatch({
+      type: LOCATIONS_FETCH_SUCCEEDED,
+      payload: { data: filteredLocations },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const changeFilterValue = (value) => ({

@@ -7,7 +7,6 @@ import {
 } from "../types/devices";
 
 import DeviceService from "../../services/deviceService";
-import Device from "../../model/device";
 
 export const getDevices = () => async (dispatch, getState) => {
   try {
@@ -24,39 +23,38 @@ export const getDevices = () => async (dispatch, getState) => {
 };
 
 export const createDevice = (data) => async (dispatch) => {
-  const newDevice = new Device(
-    Math.random(),
-    data.name,
-    data.location,
-    "ACTIVE",
-    null
-  );
-
-  dispatch({
-    type: "DEVICES_CREATE_SUCCEEDED",
-    payload: {
-      data: newDevice,
-    },
-  });
+  try {
+    const newDevice = await DeviceService.addDevice(data.name, data.location);
+    dispatch({
+      type: "DEVICES_CREATE_SUCCEEDED",
+      payload: {
+        data: newDevice,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const editDevice = (data) => (dispatch) => {
-  const newDevice = new Device(
-    data.id,
-    data.name,
-    data.location,
-    data.state,
-    "today"
-  );
-  dispatch({
-    type: "DEVICES_EDIT_SUCCEEDED",
-    payload: {
-      id: data.id,
-      data: newDevice,
-    },
-  });
+export const editDevice = (data) => async (dispatch) => {
+  try {
+    const edited = await DeviceService.editDevice(
+      data.id,
+      data.name,
+      data.location,
+      data.state
+    );
 
-  dispatch(endEdit());
+    dispatch({
+      type: "DEVICES_EDIT_SUCCEEDED",
+      payload: {
+        id: data.id,
+        data: edited,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const deleteDevice = (id) => async (dispatch) => {

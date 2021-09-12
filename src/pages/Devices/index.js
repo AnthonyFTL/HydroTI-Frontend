@@ -8,8 +8,10 @@ import Table from "../../components/Devices/Table";
 import Filters from "../../components/Devices/Filters";
 import Header from "../../components/Devices/Header";
 import EditDialog from "../../components/Devices/EditDialog";
+import CreateDialog from "../../components/Devices/CreateDialog";
 
 import Device from "../../model/device";
+import Location from "../../model/location";
 
 import {
   changeFilterValue,
@@ -21,9 +23,13 @@ import {
   editDevice,
   deleteDevice,
 } from "../../store/actions/devices";
-import CreateDialog from "../../components/Devices/CreateDialog";
 
-const Devices = ({ data, editingDevice, filters, dispatch }) => {
+import {
+  getLocations,
+  locationsResetState,
+} from "../../store/actions/locations";
+
+const Devices = ({ data, editingDevice, filters, locations, dispatch }) => {
   const [createDialogIsOpen, setCreateDialogIsOpen] = useState();
 
   useEffect(() => {
@@ -36,29 +42,51 @@ const Devices = ({ data, editingDevice, filters, dispatch }) => {
     dispatch(getDevices());
   };
 
+  const onEditDialogClose = () => {
+    dispatch(endEdit());
+    dispatch(locationsResetState());
+  };
+
+  const onCreateDialogClose = () => {
+    setCreateDialogIsOpen(false);
+    dispatch(locationsResetState());
+  };
+
+  const onEditDialogOpen = (id) =>
+    dispatch(getLocations()).then(() => dispatch(startEdit(id)));
+
+  const onEditDevice = (data) =>
+    dispatch(editDevice(data)).then(() => onEditDialogClose());
+
+  const onCreateDialogOpen = () =>
+    dispatch(getLocations()).then(() => setCreateDialogIsOpen(true));
+
+  const onCreateDevice = (data) =>
+    dispatch(createDevice(data)).then(() => onCreateDialogClose());
+
   return (
     <>
-      <Header onAddClick={() => setCreateDialogIsOpen(true)} />
+      <Header onAddClick={onCreateDialogOpen} />
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
       <Table
         data={data}
-        onEditClick={(id) => dispatch(startEdit(id))}
+        onEditClick={onEditDialogOpen}
         onDeleteClick={(id) => dispatch(deleteDevice(id))}
       />
       <EditDialog
         device={editingDevice}
         open={Boolean(editingDevice)}
-        onClose={() => dispatch(endEdit())}
-        onEdit={(data) => dispatch(editDevice(data))}
+        onClose={onEditDialogClose}
+        onEdit={onEditDevice}
+        locations={locations}
       />
       <CreateDialog
         open={createDialogIsOpen}
-        onClose={() => setCreateDialogIsOpen(false)}
-        onCreate={(data) =>
-          dispatch(createDevice(data)).then(() => setCreateDialogIsOpen(false))
-        }
+        onClose={onCreateDialogClose}
+        onCreate={onCreateDevice}
+        locations={locations}
       />
     </>
   );
@@ -68,6 +96,7 @@ Devices.propTypes = {
   data: PropTypes.arrayOf(PropTypes.instanceOf(Device)),
   editingDevice: PropTypes.instanceOf(Device),
   filters: PropTypes.object.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -79,6 +108,7 @@ const mapStateToProps = (state) => ({
   data: state.devices.devices,
   editingDevice: state.devices.editingDevice,
   filters: state.devices.filters,
+  locations: state.locations.locations,
 });
 
 export default connect(mapStateToProps)(Devices);

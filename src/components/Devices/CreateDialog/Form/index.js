@@ -6,8 +6,11 @@ import Grid from "@material-ui/core/Grid";
 import OutlinedInput from "../../../Common/OutlinedInput";
 
 import validate, { validateLocation, validateName } from "./validations";
+import OutlinedSelect from "../../../Common/OutlinedSelect";
 
-const CreateDevice = ({ id, onCreate, errors, setErrors }) => {
+import Location from "../../../../model/location";
+
+const CreateDevice = ({ id, onCreate, errors, setErrors, locations }) => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
 
@@ -48,13 +51,18 @@ const CreateDevice = ({ id, onCreate, errors, setErrors }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <OutlinedInput
+          <OutlinedSelect
             id="create-device-location"
             helperTextId="create-device-location-helper-text"
+            labelId="create-device-location-label"
             label="Ubicación"
             value={location}
             onChange={onLocationChange}
             fullWidth
+            options={locations.map((location) => ({
+              value: location.id.toString(),
+              label: location.name,
+            }))}
             hasError={errors.location.length > 0}
             errorMessage={errors.location[0]}
           />
@@ -69,10 +77,12 @@ CreateDevice.propTypes = {
   onCreate: PropTypes.func,
   errors: PropTypes.object.isRequired,
   setErrors: PropTypes.func.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.instanceOf(Location)),
 };
 
 CreateDevice.defaultProps = {
   onCreate: () => {},
+  locations: [],
 };
 
 export default CreateDevice;
