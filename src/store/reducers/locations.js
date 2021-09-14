@@ -33,6 +33,12 @@ const locations = (state = initialState, action) => {
         filters: { ...state.filters, ...action.payload.data },
       };
     }
+    case "LOCATIONS_CREATE_SUCCEEDED": {
+      return {
+        ...state,
+        locations: [...state.locations, action.payload.data],
+      };
+    }
     default: {
       return state;
     }

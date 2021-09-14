@@ -85,7 +85,7 @@ const Form = ({ id, onCreate, errors, setErrors }) => {
 Form.propTypes = {
   id: PropTypes.string.isRequired,
   onCreate: PropTypes.func,
-  errors: PropTypes.bool.isRequired,
+  errors: PropTypes.object.isRequired,
   setErrors: PropTypes.func.isRequired,
 };
 

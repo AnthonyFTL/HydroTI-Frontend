@@ -20,6 +20,21 @@ export const getLocations = () => async (dispatch, getState) => {
   }
 };
 
+export const createLocation = (data) => async (dispatch) => {
+  try {
+    const newDevice = await LocationService.addLocation(data);
+
+    dispatch({
+      type: "LOCATIONS_CREATE_SUCCEEDED",
+      payload: {
+        data: newDevice,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const changeFilterValue = (value) => ({
   type: LOCATIONS_CHANGE_FILTER_VALUE,
   payload: { data: value },

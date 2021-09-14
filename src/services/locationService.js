@@ -13,12 +13,22 @@ class LocationService {
     }
   }
 
+  async addLocation(data) {
+    try {
+      const response = await httpClient.post("parks", data);
+      return this.convertToModel(response.data);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   convertToModel(location) {
     return new Location(
       location.id,
       location.name,
       location.district,
-      this.mapStateToModel(location.state)
+      this.mapStateToModel(location.state),
+      location.devicesConnected
     );
   }
 

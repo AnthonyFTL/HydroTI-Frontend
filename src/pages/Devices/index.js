@@ -42,24 +42,24 @@ const Devices = ({ data, editingDevice, filters, locations, dispatch }) => {
     dispatch(getDevices());
   };
 
+  const onEditDialogOpen = (id) =>
+    dispatch(getLocations()).then(() => dispatch(startEdit(id)));
+
   const onEditDialogClose = () => {
     dispatch(endEdit());
     dispatch(locationsResetState());
   };
-
-  const onCreateDialogClose = () => {
-    setCreateDialogIsOpen(false);
-    dispatch(locationsResetState());
-  };
-
-  const onEditDialogOpen = (id) =>
-    dispatch(getLocations()).then(() => dispatch(startEdit(id)));
 
   const onEditDevice = (data) =>
     dispatch(editDevice(data)).then(() => onEditDialogClose());
 
   const onCreateDialogOpen = () =>
     dispatch(getLocations()).then(() => setCreateDialogIsOpen(true));
+
+  const onCreateDialogClose = () => {
+    setCreateDialogIsOpen(false);
+    dispatch(locationsResetState());
+  };
 
   const onCreateDevice = (data) =>
     dispatch(createDevice(data)).then(() => onCreateDialogClose());

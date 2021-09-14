@@ -15,6 +15,7 @@ import {
   changeFilterValue,
   getLocations,
   locationsResetState,
+  createLocation,
 } from "../../store/actions/locations";
 
 import Location from "../../model/location";
@@ -35,9 +36,15 @@ const Locations = ({ data, filters, dispatch }) => {
     dispatch(getLocations());
   };
 
+  const onCreateDialogOpen = () => setCreateFormIsOpen(true);
+  const onCreateDialogClose = () => setCreateFormIsOpen(false);
+
+  const onCreateLocation = (data) =>
+    dispatch(createLocation(data)).then(() => setCreateFormIsOpen(false));
+
   return (
     <>
-      <Header onAddClick={() => setCreateFormIsOpen(true)} />
+      <Header onAddClick={onCreateDialogOpen} />
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
       </Box>
@@ -47,8 +54,8 @@ const Locations = ({ data, filters, dispatch }) => {
       />
       <CreateDialog
         open={createFormIsOpen}
-        onClose={() => setCreateFormIsOpen(false)}
-        onCreate={(data) => console.log(data)}
+        onClose={onCreateDialogClose}
+        onCreate={onCreateLocation}
       />
     </>
   );
