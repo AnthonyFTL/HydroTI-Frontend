@@ -45,6 +45,7 @@ const Filters = ({ values, onValueChange }) => {
           value={values.state}
           onChange={setState}
           fullWidth
+          withDefaultOption
           options={[
             {
               value: locationState.IRRIGATION_IN_PROGRESS,

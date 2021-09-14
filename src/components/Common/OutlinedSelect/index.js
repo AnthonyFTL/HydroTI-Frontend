@@ -17,6 +17,7 @@ const OutlinedSelect = ({
   fullWidth,
   onChange,
   options,
+  withDefaultOption,
   ...rest
 }) => (
   <FormControl
@@ -35,7 +36,7 @@ const OutlinedSelect = ({
       onChange={(e) => onChange(e.target.value)}
       {...rest}
     >
-      <MenuItem value="">Seleccione una opción</MenuItem>
+      {withDefaultOption && <MenuItem value="">Seleccione una opción</MenuItem>}
       {options.map(({ value, label }) => (
         <MenuItem value={value} key={value}>
           {label}
@@ -64,6 +65,7 @@ OutlinedSelect.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
+  withDefaultOption: PropTypes.bool,
 };
 
 OutlinedSelect.defaultProps = {
@@ -74,6 +76,7 @@ OutlinedSelect.defaultProps = {
   fullWidth: false,
   onChange: () => {},
   options: [],
+  withDefaultOption: false,
 };
 
 export default OutlinedSelect;

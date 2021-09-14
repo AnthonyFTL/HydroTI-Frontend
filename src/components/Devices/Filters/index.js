@@ -43,6 +43,7 @@ const Filters = ({ values, onValueChange }) => {
           value={values.state}
           onChange={setState}
           fullWidth
+          withDefaultOption
           options={[
             { value: deviceState.ACTIVE, label: "Activo" },
             { value: deviceState.DISCONNECTED, label: "Desconectado" },
