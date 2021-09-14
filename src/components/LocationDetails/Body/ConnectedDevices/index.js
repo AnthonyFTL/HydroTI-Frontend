@@ -6,15 +6,25 @@ import MuiTable from "@material-ui/core/Table";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
+import { Typography } from "@material-ui/core";
 
-const ConnectedDevices = ({ data }) => (
-  <TableContainer component={Paper}>
-    <MuiTable>
-      <TableHead />
-      <TableBody data={data} />
-    </MuiTable>
-  </TableContainer>
-);
+const ConnectedDevices = ({ data }) => {
+  if (data.length === 0)
+    return (
+      <Typography align="center" variant="h5">
+        No hay dispositivos conectados
+      </Typography>
+    );
+
+  return (
+    <TableContainer component={Paper}>
+      <MuiTable>
+        <TableHead />
+        <TableBody data={data} />
+      </MuiTable>
+    </TableContainer>
+  );
+};
 
 ConnectedDevices.propTypes = {
   data: PropTypes.array,

@@ -4,10 +4,11 @@ import {
   GoogleMap,
   Marker,
 } from "react-google-maps";
+import PropTypes from "prop-types";
 
 const GoogleMapsAPI = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-const Map = () => {
+const Map = ({ latitude, longitude }) => {
   const MapComponent = withScriptjs(
     withGoogleMap((props) => (
       <GoogleMap
@@ -18,16 +19,13 @@ const Map = () => {
           zoomControl: true,
         }}
         onClick={(e) => console.log(e)}
-        defaultCenter={{ lat: -12.087079, lng: -77.080388 }}
+        center={{ lat: latitude, lng: longitude }}
         defaultZoom={18}
       >
         <Marker
           // eslint-disable-next-line react/prop-types
           google={props.google}
-          position={{
-            lat: -12.087079,
-            lng: -77.080388,
-          }}
+          position={{ lat: latitude, lng: longitude }}
         />
       </GoogleMap>
     ))
@@ -42,6 +40,11 @@ const Map = () => {
       mapElement={<div style={{ height: "100%" }} />}
     />
   );
+};
+
+Map.propTypes = {
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired,
 };
 
 export default Map;

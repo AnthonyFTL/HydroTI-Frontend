@@ -3,21 +3,22 @@ import {
   LOCATION_DETAILS_RESET_STATE,
 } from "../types/locationDetails";
 
-import LocationDetails from "../../model/locationDetails";
+import LocationService from "../../services/locationService";
 
-export const getLocationDetails = (id) => ({
-  type: LOCATION_DETAILS_FETCH_SUCCEEDED,
-  payload: {
-    data: new LocationDetails(
-      id,
-      "Parque Santo Domingo primera etapa",
-      `Urb. Residencial Lucyana`,
-      "Carabayllo",
-      "21/06/2021 - 15:23:45",
-      [{ id: "ardn-02", name: "regador principal prmt" }]
-    ),
-  },
-});
+export const getLocationDetails = (id) => async (dispatch) => {
+  try {
+    const details = await LocationService.getLocationDetails(id);
+
+    dispatch({
+      type: LOCATION_DETAILS_FETCH_SUCCEEDED,
+      payload: {
+        data: details,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const locationsDetailsResetState = () => ({
   type: LOCATION_DETAILS_RESET_STATE,

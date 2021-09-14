@@ -13,7 +13,7 @@ const Body = ({ location }) => (
   <Grid container spacing={4}>
     <Grid item xs={12} lg={5}>
       <Box height={500}>
-        <Map />
+        <Map latitude={location.latitude} longitude={location.longitude} />
       </Box>
     </Grid>
     <Grid item xs={12} lg={7}>
@@ -22,9 +22,10 @@ const Body = ({ location }) => (
         district={location.district}
         lastTime={location.lastTime}
       />
-      <Box marginTop={2}>
-        <ConnectedDevices data={location.connectedDevices} />
+      <Box marginY={2}>
+        <hr />
       </Box>
+      <ConnectedDevices data={location.connectedDevices} />
     </Grid>
   </Grid>
 );
