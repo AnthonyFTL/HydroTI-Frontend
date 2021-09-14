@@ -7,14 +7,25 @@ import OutlinedInput from "../../../Common/OutlinedInput";
 import PlacesAutocomplete from "../../../Common/PlacesAutocomplete";
 
 const Form = ({ id, onCreate }) => {
+  const [locationInput, setLocationInput] = useState("");
+
   const [name, setName] = useState("");
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreate({ name });
+    onCreate({ name, ...selectedPlace });
   };
 
-  const onPlaceSelected = (place) => console.log(place);
+  const onPlaceSelected = (completeAddress, placeData) => {
+    setSelectedPlace(placeData);
+    setLocationInput(completeAddress);
+  };
+
+  const onLocationInputChange = (value) => {
+    setLocationInput(value);
+    setSelectedPlace(null);
+  };
 
   return (
     <form id={id} onSubmit={handleSubmit}>
@@ -31,8 +42,11 @@ const Form = ({ id, onCreate }) => {
         </Grid>
         <Grid item xs={12}>
           <PlacesAutocomplete
-            id="places"
-            label="places"
+            id="locations-create-form-dialog-locations"
+            helperTextId="locations-create-form-dialog-locations-helper-text"
+            label="Ubicación"
+            value={locationInput}
+            onChange={onLocationInputChange}
             fullWidth
             onPlaceSelected={onPlaceSelected}
             options={{
