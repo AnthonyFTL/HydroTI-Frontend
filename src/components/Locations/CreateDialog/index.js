@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import Button from "@material-ui/core/Button";
@@ -8,7 +9,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Form from "./Form";
 
+const initialErrors = { name: [], location: [] };
+
 const CreateDialog = ({ open, onClose, onCreate }) => {
+  const [errors, setErrors] = useState(initialErrors);
+
+  const handleClose = () => {
+    setErrors(initialErrors);
+    onClose();
+  };
+
   return (
     <Dialog
       open={open}
@@ -19,10 +29,15 @@ const CreateDialog = ({ open, onClose, onCreate }) => {
         Crear ubicación
       </DialogTitle>
       <DialogContent>
-        <Form id="locations-create-form" onCreate={onCreate} />
+        <Form
+          id="locations-create-form"
+          onCreate={onCreate}
+          errors={errors}
+          setErrors={setErrors}
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button onClick={handleClose} color="secondary">
           Cancelar
         </Button>
         <Button
@@ -30,6 +45,7 @@ const CreateDialog = ({ open, onClose, onCreate }) => {
           color="primary"
           type="submit"
           form="locations-create-form"
+          disabled={Object.values(errors).some((e) => e.length > 0)}
         >
           Crear
         </Button>

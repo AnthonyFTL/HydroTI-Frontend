@@ -6,25 +6,43 @@ import { Grid } from "@material-ui/core";
 import OutlinedInput from "../../../Common/OutlinedInput";
 import PlacesAutocomplete from "../../../Common/PlacesAutocomplete";
 
-const Form = ({ id, onCreate }) => {
-  const [locationInput, setLocationInput] = useState("");
+import validate, { validateLocation, validateName } from "./validations";
+
+const Form = ({ id, onCreate, errors, setErrors }) => {
+  const [locationName, setLocationName] = useState("");
 
   const [name, setName] = useState("");
-  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [place, setPlace] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCreate({ name, ...selectedPlace });
+
+    const result = validate({ name, locationName, place });
+
+    if (!result.hasError) onCreate({ name, ...place });
+    else setErrors((val) => ({ ...val, ...result.errors }));
   };
 
   const onPlaceSelected = (completeAddress, placeData) => {
-    setSelectedPlace(placeData);
-    setLocationInput(completeAddress);
+    setPlace(placeData);
+    setLocationName(completeAddress);
+
+    const errors = validateLocation(completeAddress, placeData);
+    setErrors((val) => ({ ...val, location: errors }));
   };
 
-  const onLocationInputChange = (value) => {
-    setLocationInput(value);
-    setSelectedPlace(null);
+  const onNameChange = (value) => {
+    setName(value);
+    const errors = validateName(value);
+    setErrors((val) => ({ ...val, name: errors }));
+  };
+
+  const onLocationNameChange = (value) => {
+    setLocationName(value);
+    setPlace(null);
+
+    const errors = validateLocation(value, null);
+    setErrors((val) => ({ ...val, location: errors }));
   };
 
   return (
@@ -36,8 +54,10 @@ const Form = ({ id, onCreate }) => {
             helperTextId="locations-create-form-dialog-name-helper-text"
             label="Nombre"
             value={name}
-            onChange={setName}
+            onChange={onNameChange}
             fullWidth
+            hasError={errors.name.length > 0}
+            errorMessage={errors.name[0]}
           />
         </Grid>
         <Grid item xs={12}>
@@ -45,9 +65,11 @@ const Form = ({ id, onCreate }) => {
             id="locations-create-form-dialog-locations"
             helperTextId="locations-create-form-dialog-locations-helper-text"
             label="Ubicación"
-            value={locationInput}
-            onChange={onLocationInputChange}
+            value={locationName}
+            onChange={onLocationNameChange}
             fullWidth
+            hasError={errors.location.length > 0}
+            errorMessage={errors.location[0]}
             onPlaceSelected={onPlaceSelected}
             options={{
               types: ["address"],
@@ -63,6 +85,8 @@ const Form = ({ id, onCreate }) => {
 Form.propTypes = {
   id: PropTypes.string.isRequired,
   onCreate: PropTypes.func,
+  errors: PropTypes.bool.isRequired,
+  setErrors: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
