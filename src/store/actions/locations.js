@@ -45,14 +45,17 @@ export const locationsResetState = () => ({
 });
 
 const filter = (locations, filters) => {
-  const name = filters.name;
-  const district = filters.district;
+  const name = filters.name.toLowerCase();
+  const district = filters.district.toLowerCase();
   const state = filters.state;
   const devices = filters.connectedDevices;
 
   return locations
-    .filter((location) => !name || location.name.includes(name))
-    .filter((location) => !district || location.district.includes(district))
+    .filter((location) => !name || location.name.toLowerCase().includes(name))
+    .filter(
+      (location) =>
+        !district || location.district.toLowerCase().includes(district)
+    )
     .filter((location) => !state || location.state === state)
     .filter((location) => !devices || location.connectedDevices === +devices);
 };

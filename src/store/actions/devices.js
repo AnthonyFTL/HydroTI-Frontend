@@ -90,12 +90,14 @@ export const devicesResetState = () => ({
 });
 
 const filter = (devices, filters) => {
-  const name = filters.name;
-  const location = filters.location;
+  const name = filters.name.toLowerCase();
+  const location = filters.location.toLowerCase();
   const state = filters.state;
 
   return devices
-    .filter((device) => !name || device.name.includes(name))
-    .filter((device) => !location || device.location.includes(location))
+    .filter((device) => !name || device.name.toLowerCase().includes(name))
+    .filter(
+      (device) => !location || device.location.toLowerCase().includes(location)
+    )
     .filter((device) => !state || device.state === state);
 };
