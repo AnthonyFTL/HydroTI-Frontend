@@ -18,7 +18,7 @@ const Body = ({ location }) => (
     </Grid>
     <Grid item xs={12} lg={7}>
       <Details
-        location={location.location}
+        location={location.address}
         district={location.district}
         lastTime={location.lastTime}
       />

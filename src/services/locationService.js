@@ -35,6 +35,32 @@ class LocationService {
     }
   }
 
+  async editLocation(data) {
+    try {
+      const response = await httpClient.put(`parks/${data.id}`, {
+        name: data.name,
+        address: data.address,
+        country: data.country,
+        district: data.district,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        province: data.province,
+        state: data.state,
+      });
+      return this.convertLocationDetailsToModel(response.data);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async deleteLocation(deviceId) {
+    try {
+      await httpClient.delete(`parks/${deviceId}`);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   convertLocationToModel(location) {
     return new Location(
       location.id,
@@ -50,11 +76,14 @@ class LocationService {
       location.id,
       location.name,
       location.address,
+      location.country,
       location.district,
-      location.lastTime,
       location.latitude,
       location.longitude,
-      []
+      location.province,
+      location.state,
+      [],
+      location.lastTime
     );
   }
 

@@ -4,6 +4,9 @@ import {
   DEVICES_CHANGE_FILTER_VALUE,
   DEVICES_START_EDIT,
   DEVICES_END_EDIT,
+  DEVICES_CREATE_SUCCEEDED,
+  DEVICES_EDIT_SUCCEEDED,
+  DEVICES_DELETE_SUCCEEDED,
 } from "../types/devices";
 
 import DeviceService from "../../services/deviceService";
@@ -26,7 +29,7 @@ export const createDevice = (data) => async (dispatch) => {
   try {
     const newDevice = await DeviceService.addDevice(data.name, data.location);
     dispatch({
-      type: "DEVICES_CREATE_SUCCEEDED",
+      type: DEVICES_CREATE_SUCCEEDED,
       payload: {
         data: newDevice,
       },
@@ -38,15 +41,10 @@ export const createDevice = (data) => async (dispatch) => {
 
 export const editDevice = (data) => async (dispatch) => {
   try {
-    const edited = await DeviceService.editDevice(
-      data.id,
-      data.name,
-      data.location,
-      data.state
-    );
+    const edited = await DeviceService.editDevice(data);
 
     dispatch({
-      type: "DEVICES_EDIT_SUCCEEDED",
+      type: DEVICES_EDIT_SUCCEEDED,
       payload: {
         id: data.id,
         data: edited,
@@ -61,7 +59,7 @@ export const deleteDevice = (id) => async (dispatch) => {
   try {
     await DeviceService.deleteDevice(id);
     dispatch({
-      type: "DEVICES_DELETE_SUCCEEDED",
+      type: DEVICES_DELETE_SUCCEEDED,
       payload: {
         id,
       },
