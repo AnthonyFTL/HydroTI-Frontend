@@ -4,8 +4,7 @@ import Chip from "@material-ui/core/Chip";
 import red from "@material-ui/core/colors/red";
 import indigo from "@material-ui/core/colors/indigo";
 import green from "@material-ui/core/colors/green";
-
-import locationState from "../../../../../model/locationState";
+import locationState from "../../../../model/locationState";
 
 const StateChip = ({ state }) => {
   let label, backgroundColor, color;

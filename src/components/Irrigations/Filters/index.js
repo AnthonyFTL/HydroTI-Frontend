@@ -11,7 +11,7 @@ const Filters = ({ values, onValueChange }) => {
   const setName = (value) => onValueChange({ name: value });
   const setDistrict = (value) => onValueChange({ district: value });
   const setState = (value) => onValueChange({ state: value });
-  const setType = (value) => onValueChange({ type: value });
+  const setType = (value) => onValueChange({ irrigationType: value });
 
   return (
     <Grid container spacing={2}>

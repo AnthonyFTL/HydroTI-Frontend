@@ -6,8 +6,8 @@ import MuiTableBody from "@material-ui/core/TableBody";
 
 import StyledTableCell from "../../../Common/Table/StyledTableCell";
 
-import StateChip from "./StateChip";
 import ClickableRow from "../../../Common/Table/ClickableRow";
+import StateChip from "../StateChip";
 
 const TableBody = ({ data, onDetailsClick }) => (
   <MuiTableBody>
