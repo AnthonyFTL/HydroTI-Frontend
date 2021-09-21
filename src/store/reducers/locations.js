@@ -1,5 +1,6 @@
 import {
   LOCATIONS_CHANGE_FILTER_VALUE,
+  LOCATIONS_CREATE_SUCCEEDED,
   LOCATIONS_FETCH_SUCCEEDED,
   LOCATIONS_RESET_STATE,
 } from "../types/locations";
@@ -33,7 +34,7 @@ const locations = (state = initialState, action) => {
         filters: { ...state.filters, ...action.payload.data },
       };
     }
-    case "LOCATIONS_CREATE_SUCCEEDED": {
+    case LOCATIONS_CREATE_SUCCEEDED: {
       return {
         ...state,
         locations: [...state.locations, action.payload.data],

@@ -1,5 +1,6 @@
 import {
   LOCATIONS_CHANGE_FILTER_VALUE,
+  LOCATIONS_CREATE_SUCCEEDED,
   LOCATIONS_FETCH_SUCCEEDED,
   LOCATIONS_RESET_STATE,
 } from "../types/locations";
@@ -25,7 +26,7 @@ export const createLocation = (data) => async (dispatch) => {
     const newDevice = await LocationService.addLocation(data);
 
     dispatch({
-      type: "LOCATIONS_CREATE_SUCCEEDED",
+      type: LOCATIONS_CREATE_SUCCEEDED,
       payload: {
         data: newDevice,
       },

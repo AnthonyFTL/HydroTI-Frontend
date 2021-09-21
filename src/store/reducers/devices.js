@@ -4,6 +4,9 @@ import {
   DEVICES_CHANGE_FILTER_VALUE,
   DEVICES_START_EDIT,
   DEVICES_END_EDIT,
+  DEVICES_CREATE_SUCCEEDED,
+  DEVICES_EDIT_SUCCEEDED,
+  DEVICES_DELETE_SUCCEEDED,
 } from "../types/devices";
 
 const initialState = {
@@ -35,13 +38,13 @@ const devices = (state = initialState, action) => {
         filters: { ...state.filters, ...action.payload.data },
       };
     }
-    case "DEVICES_CREATE_SUCCEEDED": {
+    case DEVICES_CREATE_SUCCEEDED: {
       return {
         ...state,
         devices: [...state.devices, action.payload.data],
       };
     }
-    case "DEVICES_EDIT_SUCCEEDED": {
+    case DEVICES_EDIT_SUCCEEDED: {
       const { id, data } = action.payload;
 
       const deviceIndex = state.devices.findIndex((device) => device.id === id);
@@ -53,7 +56,7 @@ const devices = (state = initialState, action) => {
         devices: newDevices,
       };
     }
-    case "DEVICES_DELETE_SUCCEEDED": {
+    case DEVICES_DELETE_SUCCEEDED: {
       const { id } = action.payload;
 
       return {

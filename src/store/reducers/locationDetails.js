@@ -1,6 +1,8 @@
 import {
   LOCATION_DETAILS_FETCH_SUCCEEDED,
   LOCATION_DETAILS_RESET_STATE,
+  LOCATION_DETAILS_EDIT_SUCCEEDED,
+  LOCATION_DETAILS_DELETE_SUCCEEDED,
 } from "../types/locationDetails";
 
 const initialState = {
@@ -18,6 +20,18 @@ const locationDetails = (state = initialState, action) => {
       return {
         ...state,
         details: action.payload.data,
+      };
+    }
+    case LOCATION_DETAILS_EDIT_SUCCEEDED: {
+      return {
+        ...state,
+        details: action.payload.data,
+      };
+    }
+    case LOCATION_DETAILS_DELETE_SUCCEEDED: {
+      return {
+        ...state,
+        details: null,
       };
     }
     default: {

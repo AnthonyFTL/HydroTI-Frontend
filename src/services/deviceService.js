@@ -22,12 +22,12 @@ class DeviceService {
     }
   }
 
-  async editDevice(deviceId, name, parkId, state) {
+  async editDevice(data) {
     try {
-      const response = await httpClient.put(`/devices/${deviceId}`, {
-        name,
-        parkId,
-        state: this.mapModelToState(state),
+      const response = await httpClient.put(`devices/${data.id}`, {
+        name: data.name,
+        parkId: data.location,
+        state: this.mapModelToState(data.state),
       });
       return this.convertToModel(response.data);
     } catch (error) {

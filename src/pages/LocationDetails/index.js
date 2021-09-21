@@ -9,6 +9,8 @@ import Header from "../../components/LocationDetails/Header";
 import Body from "../../components/LocationDetails/Body";
 
 import {
+  editLocation,
+  deleteLocation,
   getLocationDetails,
   locationsDetailsResetState,
 } from "../../store/actions/locationDetails";
@@ -31,7 +33,12 @@ const LocationDetails = ({ details, dispatch }) => {
       <Box marginBottom={5}>
         <Header
           onArrowBackClick={() => history.goBack()}
+          details={details}
           title={details.name}
+          onEditClick={(data) => dispatch(editLocation(data))}
+          onDeleteClick={() =>
+            dispatch(deleteLocation(id)).then(() => history.goBack())
+          }
         />
       </Box>
       <Body location={details} />

@@ -2,20 +2,26 @@ export default class LocationDetails {
   constructor(
     id,
     name,
-    location,
+    address,
+    country,
     district,
-    lastTime,
     latitude,
     longitude,
-    connectedDevices
+    province,
+    state,
+    connectedDevices,
+    lastTime
   ) {
     this.id = id;
     this.name = name;
-    this.location = location;
+    this.address = address;
+    this.country = country;
     this.district = district;
-    this.lastTime = lastTime;
     this.latitude = latitude;
     this.longitude = longitude;
+    this.province = province;
+    this.state = state;
     this.connectedDevices = connectedDevices;
+    this.lastTime = lastTime;
   }
 }
