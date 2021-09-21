@@ -4,6 +4,7 @@ const routes = Object.freeze({
   SIGN_UP: "/sign-up",
   LOCATIONS: "/locations",
   DEVICES: "/devices",
+  IRRIGATIONS: "/irrigations",
   REPORTS: "/reports",
 });
 

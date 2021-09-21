@@ -7,6 +7,7 @@ import SignUp from "../../pages/auth/SignUp";
 import Locations from "../../pages/Locations";
 import LocationDetails from "../../pages/LocationDetails";
 import Devices from "../../pages/Devices";
+import Irrigations from "../../pages/Irrigations";
 import Reports from "../../pages/Reports";
 
 import routes from "../routes";
@@ -25,6 +26,7 @@ const Router = () => (
       />
       <Route path={routes.LOCATIONS} component={withDrawer(Locations)} />
       <Route path={routes.DEVICES} component={withDrawer(Devices)} />
+      <Route path={routes.IRRIGATIONS} component={withDrawer(Irrigations)} />
       <Route path={routes.REPORTS} component={withDrawer(Reports)} />
     </Switch>
   </BrowserRouter>

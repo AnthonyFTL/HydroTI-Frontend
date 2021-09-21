@@ -30,6 +30,12 @@ const withDrawer = (Component) => (props) => {
       onClick: () => history.push(routes.DEVICES),
     },
     {
+      isActive: location.pathname === routes.IRRIGATIONS,
+      icon: <NatureIcon />,
+      text: "Riegos IOT",
+      onClick: () => history.push(routes.IRRIGATIONS),
+    },
+    {
       isActive: location.pathname === routes.REPORTS,
       icon: <ViewQuiltIcon />,
       text: "Reportes",
