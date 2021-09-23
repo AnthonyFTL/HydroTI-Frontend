@@ -28,6 +28,7 @@ import {
   getLocations,
   locationsResetState,
 } from "../../store/actions/locations";
+import useIotData from "../../hooks/useIotData";
 
 const Devices = ({ data, editingDevice, filters, locations, dispatch }) => {
   const [createDialogIsOpen, setCreateDialogIsOpen] = useState();
@@ -64,8 +65,18 @@ const Devices = ({ data, editingDevice, filters, locations, dispatch }) => {
   const onCreateDevice = (data) =>
     dispatch(createDevice(data)).then(() => onCreateDialogClose());
 
+  const values = useIotData();
+
   return (
     <>
+      {values && (
+        <Box>
+          <p>{values.temperature}</p>
+          <p>{values.humidity}</p>
+          <p>{values.lights}</p>
+          <p>{values.moisture}</p>
+        </Box>
+      )}
       <Header onAddClick={onCreateDialogOpen} />
       <Box marginY={3}>
         <Filters values={filters} onValueChange={onFilterValueChange} />
