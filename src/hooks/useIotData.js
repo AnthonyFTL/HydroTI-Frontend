@@ -6,7 +6,7 @@ const useIotData = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    var sock = new SockJS("http://localhost:8080/ws");
+    const sock = new SockJS("http://localhost:8080/ws");
     let client = Stomp.over(sock);
 
     client.connect({}, () => {

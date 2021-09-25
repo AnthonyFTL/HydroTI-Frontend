@@ -4,7 +4,6 @@ import withDrawer from "../../hoc/common/WithDrawer";
 
 import SignIn from "../../pages/auth/SignIn";
 import SignUp from "../../pages/auth/SignUp";
-import Locations from "../../pages/Locations";
 import LocationDetails from "../../pages/LocationDetails";
 import Devices from "../../pages/Devices";
 import Irrigations from "../../pages/Irrigations";
@@ -20,11 +19,7 @@ const Router = () => (
       </Route>
       <Route path={routes.SIGN_IN} component={SignIn} />
       <Route path={routes.SIGN_UP} component={SignUp} />
-      <Route
-        path={`${routes.LOCATIONS}/:id`}
-        component={withDrawer(LocationDetails)}
-      />
-      <Route path={routes.LOCATIONS} component={withDrawer(Locations)} />
+      <Route path={routes.LOCATIONS} component={withDrawer(LocationDetails)} />
       <Route path={routes.DEVICES} component={withDrawer(Devices)} />
       <Route path={routes.IRRIGATIONS} component={withDrawer(Irrigations)} />
       <Route path={routes.REPORTS} component={withDrawer(Reports)} />

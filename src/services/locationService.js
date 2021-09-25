@@ -17,10 +17,11 @@ class LocationService {
     }
   }
 
-  async getLocationDetails(id) {
+  async getLocationDetails() {
     try {
-      const response = await httpClient.get(`parks/${id}`);
-      return this.convertLocationDetailsToModel(response.data);
+      const response = await httpClient.get("parks");
+      console.log(response.data);
+      return this.convertLocationDetailsToModel(response.data[0]);
     } catch (error) {
       return Promise.reject(error);
     }

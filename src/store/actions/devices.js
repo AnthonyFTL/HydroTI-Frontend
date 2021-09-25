@@ -11,14 +11,13 @@ import {
 
 import DeviceService from "../../services/deviceService";
 
-export const getDevices = () => async (dispatch, getState) => {
+export const getDevices = () => async (dispatch) => {
   try {
     const devices = await DeviceService.getAllDevices();
-    const filteredDevices = filter(devices, getState().devices.filters);
 
     dispatch({
       type: DEVICES_FETCH_SUCCEEDED,
-      payload: { data: filteredDevices },
+      payload: { data: [devices[0]] },
     });
   } catch (error) {
     console.log(error);
@@ -86,16 +85,3 @@ export const changeFilterValue = (value) => ({
 export const devicesResetState = () => ({
   type: DEVICES_RESET_STATE,
 });
-
-const filter = (devices, filters) => {
-  const name = filters.name.toLowerCase();
-  const location = filters.location.toLowerCase();
-  const state = filters.state;
-
-  return devices
-    .filter((device) => !name || device.name.toLowerCase().includes(name))
-    .filter(
-      (device) => !location || device.location.toLowerCase().includes(location)
-    )
-    .filter((device) => !state || device.state === state);
-};

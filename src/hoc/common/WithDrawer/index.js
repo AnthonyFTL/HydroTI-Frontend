@@ -20,19 +20,19 @@ const withDrawer = (Component) => (props) => {
     {
       isActive: location.pathname === routes.LOCATIONS,
       icon: <NatureIcon />,
-      text: "Ubicaciones",
+      text: "Ubicación",
       onClick: () => history.push(routes.LOCATIONS),
     },
     {
       isActive: location.pathname === routes.DEVICES,
       icon: <WifiIcon />,
-      text: "Dispositivos",
+      text: "Dispositivo",
       onClick: () => history.push(routes.DEVICES),
     },
     {
       isActive: location.pathname === routes.IRRIGATIONS,
       icon: <NatureIcon />,
-      text: "Riegos IOT",
+      text: "Riego IOT",
       onClick: () => history.push(routes.IRRIGATIONS),
     },
     {

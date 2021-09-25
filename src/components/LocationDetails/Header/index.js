@@ -27,13 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({
-  onArrowBackClick,
-  title,
-  onEditClick,
-  onDeleteClick,
-  details,
-}) => {
+const Header = ({ onArrowBackClick, title, onEditClick, details }) => {
   const [editDialogIsOpen, setEditDialogIsOpen] = useState();
   const styles = useStyles();
 
@@ -53,10 +47,7 @@ const Header = ({
           </Box>
         </Box>
         <Box className={styles.buttons}>
-          <Buttons
-            onEditClick={() => setEditDialogIsOpen(true)}
-            onDeleteClick={onDeleteClick}
-          />
+          <Buttons onEditClick={() => setEditDialogIsOpen(true)} />
         </Box>
       </div>
       {details && (
@@ -77,7 +68,6 @@ Header.propTypes = {
   onArrowBackClick: PropTypes.func,
   title: PropTypes.string.isRequired,
   onEditClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
   details: PropTypes.instanceOf(LocationDetails),
 };
 

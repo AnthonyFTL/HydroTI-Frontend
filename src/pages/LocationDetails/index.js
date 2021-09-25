@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Box from "@material-ui/core/Box";
@@ -10,7 +9,6 @@ import Body from "../../components/LocationDetails/Body";
 
 import {
   editLocation,
-  deleteLocation,
   getLocationDetails,
   locationsDetailsResetState,
 } from "../../store/actions/locationDetails";
@@ -18,11 +16,8 @@ import {
 import LocationDetailsModel from "../../model/locationDetails";
 
 const LocationDetails = ({ details, dispatch }) => {
-  const history = useHistory();
-  const { id } = useParams();
-
   useEffect(() => {
-    dispatch(getLocationDetails(id));
+    dispatch(getLocationDetails());
     return () => dispatch(locationsDetailsResetState());
   }, []);
 
@@ -36,9 +31,6 @@ const LocationDetails = ({ details, dispatch }) => {
           details={details}
           title={details.name}
           onEditClick={(data) => dispatch(editLocation(data))}
-          onDeleteClick={() =>
-            dispatch(deleteLocation(id)).then(() => history.goBack())
-          }
         />
       </Box>
       <Body location={details} />

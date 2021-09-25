@@ -7,9 +7,9 @@ import {
 
 import LocationService from "../../services/locationService";
 
-export const getLocationDetails = (id) => async (dispatch) => {
+export const getLocationDetails = () => async (dispatch) => {
   try {
-    const details = await LocationService.getLocationDetails(id);
+    const details = await LocationService.getLocationDetails();
 
     dispatch({
       type: LOCATION_DETAILS_FETCH_SUCCEEDED,
