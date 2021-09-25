@@ -17,23 +17,21 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import DataService from "../../services/dataService";
 
 const Irrigations = ({ dispatch }) => {
-  const [manualIrrigation, setManualIrrigation] = useState(false);
+  const iotData = useIotData();
 
   useEffect(() => {
     return () => dispatch(irrigationsResetState());
   });
 
-  const onPowerClick = () => {};
+  const onPowerClick = () => DataService.switchPumpValue().then(() => {});
 
-  const setIrrigationType = (checked) => {
-    setManualIrrigation(checked);
-  };
+  const setIrrigationType = () =>
+    DataService.changeIrrigationType().then(() => {});
 
-  const iotData = useIotData();
-
-  return (
+  return iotData && (
     <>
       <Header />
       <Box marginTop={3}>
@@ -42,15 +40,16 @@ const Irrigations = ({ dispatch }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={manualIrrigation}
+                  checked={iotData.manualIrrigation}
                   onChange={(e) => setIrrigationType(e.target.checked)}
                 />
               }
-              label={manualIrrigation ? "Riego manual" : "Riego automático"}
+              label={iotData.manualIrrigation ? "Riego manual" : "Riego automático"}
             />
           </FormGroup>
-          {manualIrrigation && (
+          {iotData.manualIrrigation && (
             <IconButton onClick={onPowerClick}>
+              { iotData.pump === "ON" ? "Apagar" : "Encender" }
               <PowerSettingsNewIcon />
             </IconButton>
           )}
