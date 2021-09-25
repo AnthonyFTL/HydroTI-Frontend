@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "../../components/Irrigations/Header";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
