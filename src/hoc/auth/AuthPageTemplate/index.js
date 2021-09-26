@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-import authBackground from "../../../../assets/auth-background.jpg";
+import authBackground from "../../../assets/auth-background.jpg";
 import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import Alert from "../../../../components/Common/Alert";
+import Alert from "../../../components/Common/Alert";
 
 const useStyles = makeStyles({
   page: {

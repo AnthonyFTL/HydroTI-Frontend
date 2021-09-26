@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import SignInForm from "../../../components/auth/SignInForm";
-import AuthPageTemplate from "../../../hoc/templates/auth/AuthPageTemplate";
+import AuthPageTemplate from "../../../hoc/auth/AuthPageTemplate";
 import routes from "../../../router/routes";
 
 import {
@@ -20,7 +20,7 @@ const SignIn = ({ errorMessage, isLoading, dispatch }) => {
 
   const onSignIn = (data) =>
     dispatch(requestSignIn(data)).then(
-      (succeeded) => succeeded && history.push(routes.HOME)
+      (succeeded) => succeeded && history.push(routes.LOCATIONS)
     );
 
   const onErrorMessageClose = () => dispatch(closeError());

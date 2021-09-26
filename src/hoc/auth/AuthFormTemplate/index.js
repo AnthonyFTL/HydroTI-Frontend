@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 
 import { LinearProgress, makeStyles, Typography } from "@material-ui/core";
 
-import WithShadow from "../../../WithShadow";
+import WithShadow from "../../common/WithShadow";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: 30,
     marginBottom: 30,
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
   },
   form: {
     display: "grid",
-    rowGap: 20,
+    rowGap: 25,
   },
   button: {
     marginTop: 30,
@@ -27,14 +28,19 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
   },
-});
+  link: {
+    textDecoration: "none",
+    color: theme.palette.secondary.main,
+  },
+}));
 
 const AuthFormTemplate = ({
   title,
   submitText,
+  linkText,
+  linkTo,
   handleSubmit,
   children,
-  footer,
   isLoading,
   disabled,
 }) => {
@@ -60,7 +66,11 @@ const AuthFormTemplate = ({
           </Button>
         </div>
       </form>
-      {footer}
+      <Typography variant="h6" align="center">
+        <Link to={linkTo} className={styles.link}>
+          {linkText}
+        </Link>
+      </Typography>
     </WithShadow>
   );
 };
@@ -68,9 +78,10 @@ const AuthFormTemplate = ({
 AuthFormTemplate.propTypes = {
   title: PropTypes.string,
   submitText: PropTypes.string.isRequired,
+  linkText: PropTypes.string.isRequired,
+  linkTo: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func,
   children: PropTypes.node.isRequired,
-  footer: PropTypes.node,
   isLoading: PropTypes.bool,
   disabled: PropTypes.bool,
 };
@@ -78,7 +89,6 @@ AuthFormTemplate.propTypes = {
 AuthFormTemplate.defaultProps = {
   title: "",
   handleSubmit: () => {},
-  footer: null,
   isLoading: false,
   disabled: false,
 };

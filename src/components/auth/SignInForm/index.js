@@ -1,12 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
-
 import OutlinedInput from "../../Common/OutlinedInput";
 import routes from "../../../router/routes";
-import AuthFormTemplate from "../../../hoc/templates/auth/AuthFormTemplate";
+import AuthFormTemplate from "../../../hoc/auth/AuthFormTemplate";
 
 import validate, { validateEmail, validatePassword } from "./validations";
 
@@ -43,16 +40,11 @@ const SignInForm = ({ onSignIn, isLoading }) => {
     <AuthFormTemplate
       title="Iniciar Sesión"
       submitText="Ingresar"
+      linkText="Registrate"
+      linkTo={routes.SIGN_UP}
       handleSubmit={handleSubmit}
       isLoading={isLoading}
       disabled={Object.values(errors).some((e) => e.length > 0)}
-      footer={
-        <Link to={routes.SIGN_UP}>
-          <Typography variant="h6" align="center">
-            Regístrate
-          </Typography>
-        </Link>
-      }
     >
       <OutlinedInput
         id="sign-in-email"

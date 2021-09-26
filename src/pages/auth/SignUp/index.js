@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import SignUpForm from "../../../components/auth/SignUpForm";
-import AuthPageTemplate from "../../../hoc/templates/auth/AuthPageTemplate";
+import AuthPageTemplate from "../../../hoc/auth/AuthPageTemplate";
 import SignUpConfirmation from "../../../components/auth/SignUpConfirmation";
 
 import {

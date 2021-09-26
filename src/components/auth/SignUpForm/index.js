@@ -1,13 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
-
 import RoleRadioButtons from "../RoleRadioButtons";
 import OutlinedInput from "../../Common/OutlinedInput";
 import routes from "../../../router/routes";
-import AuthFormTemplate from "../../../hoc/templates/auth/AuthFormTemplate";
+import AuthFormTemplate from "../../../hoc/auth/AuthFormTemplate";
 
 import validate, {
   validateName,
@@ -99,16 +96,11 @@ const SignUpForm = ({ onSignUp, isLoading }) => {
     <AuthFormTemplate
       title="Registro Nuevo Usuario"
       submitText="Registrar"
+      linkText="Iniciar Sesión"
+      linkTo={routes.SIGN_IN}
       handleSubmit={handleSubmit}
       isLoading={isLoading}
       disabled={Object.values(errors).some((e) => e.length > 0)}
-      footer={
-        <Link to={routes.SIGN_IN}>
-          <Typography variant="h6" align="center">
-            Inciar Sesión
-          </Typography>
-        </Link>
-      }
     >
       <RoleRadioButtons
         value={role}

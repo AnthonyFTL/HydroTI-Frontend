@@ -1,6 +1,6 @@
 import { makeStyles, Typography } from "@material-ui/core";
 
-import WithShadow from "../../../hoc/WithShadow";
+import WithShadow from "../../../hoc/common/WithShadow";
 import signUpConfirmationSVG from "../../../assets/signup-confirmation.svg";
 import { Link } from "react-router-dom";
 import routes from "../../../router/routes";
