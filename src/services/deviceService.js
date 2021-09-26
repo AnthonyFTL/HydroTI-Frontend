@@ -3,6 +3,8 @@ import httpClient from "../util/httpClient";
 import Device from "../model/device";
 import deviceState from "../model/deviceState";
 
+import moment from "moment";
+
 class DeviceService {
   async getAllDevices() {
     try {
@@ -44,12 +46,15 @@ class DeviceService {
   }
 
   convertToModel(device) {
+    console.log(device);
     return new Device(
       device.id,
       device.name,
       device.location,
       this.mapStateToModel(device.state),
-      device.lastUseDate,
+      moment(moment.utc(device.lastDateUsed).toDate())
+        .local()
+        .format("DD-MM-YYYY HH:mm:ss"),
       device.parkId
     );
   }

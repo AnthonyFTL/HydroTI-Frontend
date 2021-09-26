@@ -2,8 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
 
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ onArrowBackClick, title, onEditClick, details }) => {
+const Header = ({ title, onEditClick, details }) => {
   const [editDialogIsOpen, setEditDialogIsOpen] = useState();
   const styles = useStyles();
 
@@ -35,11 +33,6 @@ const Header = ({ onArrowBackClick, title, onEditClick, details }) => {
     <>
       <div className={styles.root}>
         <Box display="flex">
-          <Box alignSelf="start">
-            <IconButton onClick={onArrowBackClick}>
-              <ArrowBackIcon />
-            </IconButton>
-          </Box>
           <Box alignSelf="center">
             <Typography variant="h5" style={{ marginLeft: 10 }}>
               {title}
