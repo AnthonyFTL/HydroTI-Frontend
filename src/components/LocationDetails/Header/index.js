@@ -5,7 +5,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
 
-import Buttons from "./Buttons";
+import LocationDetailsEditButton from "./Buttons";
 import EditDialog from "../../LocationDetails/EditDialog";
 
 import LocationDetails from "../../../model/locationDetails";
@@ -40,7 +40,9 @@ const Header = ({ title, onEditClick, details }) => {
           </Box>
         </Box>
         <Box className={styles.buttons}>
-          <Buttons onEditClick={() => setEditDialogIsOpen(true)} />
+          <LocationDetailsEditButton
+            onEditClick={() => setEditDialogIsOpen(true)}
+          />
         </Box>
       </div>
       {details && (

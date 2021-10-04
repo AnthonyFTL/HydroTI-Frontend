@@ -1,5 +1,4 @@
 import httpClient from "../util/httpClient";
-
 import Device from "../model/device";
 import deviceState from "../model/deviceState";
 
@@ -11,10 +10,10 @@ class DeviceService {
       const response = await httpClient.get("devices");
       return response.data.map((device) => this.convertToModel(device));
     } catch (error) {
+      console.log("ex");
       return Promise.reject(error);
     }
   }
-
   async addDevice(name, parkId) {
     try {
       const response = await httpClient.post("devices", { name, parkId });
@@ -23,7 +22,6 @@ class DeviceService {
       return Promise.reject(error);
     }
   }
-
   async editDevice(data) {
     try {
       const response = await httpClient.put(`devices/${data.id}`, {
@@ -36,7 +34,6 @@ class DeviceService {
       return Promise.reject(error);
     }
   }
-
   async deleteDevice(deviceId) {
     try {
       await httpClient.delete(`devices/${deviceId}`);
@@ -46,7 +43,7 @@ class DeviceService {
   }
 
   convertToModel(device) {
-    console.log(device);
+    // console.log(device);
     return new Device(
       device.id,
       device.name,
@@ -58,7 +55,6 @@ class DeviceService {
       device.parkId
     );
   }
-
   mapStateToModel = (state) => {
     switch (state) {
       case "INACTIVO": {

@@ -8,6 +8,7 @@ const TableHead = () => (
     <StyledTableRow>
       <StyledTableCell>Nombre</StyledTableCell>
       <StyledTableCell>Usado por último vez</StyledTableCell>
+      <StyledTableCell>Operaciones</StyledTableCell>
     </StyledTableRow>
   </MuiTableHead>
 );

@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 
-const Buttons = ({ onEditClick }) => {
+const LocationDetailsEditButton = ({ onEditClick }) => {
   return (
     <>
       <Grid container spacing={1}>
@@ -21,9 +21,9 @@ const Buttons = ({ onEditClick }) => {
   );
 };
 
-Buttons.propTypes = {
+LocationDetailsEditButton.propTypes = {
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
 };
 
-export default Buttons;
+export default LocationDetailsEditButton;
