@@ -8,16 +8,25 @@ import PlacesAutocomplete from "../../../Common/PlacesAutocomplete";
 
 import LocationDetails from "../../../../model/locationDetails";
 
-const Form = ({ id, onEdit, details }) => {
-  const [locationName, setLocationName] = useState("");
+import { validate, validateName } from "./validations";
 
+const Form = ({ id, onEdit, setErrors, errors, details }) => {
+  const [locationName, setLocationName] = useState("");
   const [name, setName] = useState(details.name);
   const [place, setPlace] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const result = validate({ name });
+    if (!result.hasError) onEdit({ ...details, name, ...place });
+    else setErrors((val) => ({ ...val, ...result.errors }));
+  };
 
-    onEdit({ ...details, name, ...place });
+  const onNameChange = (value) => {
+    setName(value);
+    console.log("estuvo aqui");
+    const errors = validateName(value);
+    setErrors((val) => ({ ...val, name: errors }));
   };
 
   const onPlaceSelected = (completeAddress, placeData) => {
@@ -39,8 +48,10 @@ const Form = ({ id, onEdit, details }) => {
             helperTextId="locations-create-form-dialog-name-helper-text"
             label="Nombre"
             value={name}
-            onChange={setName}
+            onChange={onNameChange}
             fullWidth
+            hasError={errors.name.length > 0}
+            errorMessage={errors.name[0]}
           />
         </Grid>
         <Grid item xs={12}>
@@ -67,6 +78,8 @@ Form.propTypes = {
   id: PropTypes.string.isRequired,
   onEdit: PropTypes.func,
   details: PropTypes.instanceOf(LocationDetails).isRequired,
+  setErrors: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 Form.defaultProps = {

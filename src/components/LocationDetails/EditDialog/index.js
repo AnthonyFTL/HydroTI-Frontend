@@ -9,8 +9,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import LocationDetails from "../../../model/locationDetails";
 
 import Form from "./Form";
+import { useState } from "react";
+
+const initialErrors = { name: [], location: [], state: [] };
 
 const EditDialog = ({ open, onClose, onEdit, details }) => {
+  const [errors, setErrors] = useState(initialErrors);
+
   return (
     <Dialog
       open={open}
@@ -21,7 +26,13 @@ const EditDialog = ({ open, onClose, onEdit, details }) => {
         Editar ubicación
       </DialogTitle>
       <DialogContent>
-        <Form id="locations-create-form" onEdit={onEdit} details={details} />
+        <Form
+          setErrors={setErrors}
+          id="locations-create-form"
+          errors={errors}
+          onEdit={onEdit}
+          details={details}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="secondary">
@@ -32,6 +43,7 @@ const EditDialog = ({ open, onClose, onEdit, details }) => {
           color="primary"
           type="submit"
           form="locations-create-form"
+          disabled={Object.values(errors).some((e) => e.length > 0)}
         >
           Editar
         </Button>
