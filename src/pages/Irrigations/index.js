@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import Header from "../../components/Irrigations/Header";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -18,9 +18,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import DataService from "../../services/dataService";
+import Confirmation from "../../components/Common/Confirmation";
 
 const Irrigations = ({ dispatch }) => {
   const iotData = useIotData();
+  const [irrigationConfirmationIsOpen, setIrrigationConfirmationIsOpen] = useState(false);
+  const [toggleOnOffConfirmationIsOpen, setToggleOnOffConfirmationIsOpen] = useState(false);
+  const [switchChangeEvent, setSwitchChangeEvent] = useState();
 
   useEffect(() => {
     return () => dispatch(irrigationsResetState());
@@ -42,7 +46,10 @@ const Irrigations = ({ dispatch }) => {
                 control={
                   <Switch
                     checked={iotData.manualIrrigation}
-                    onChange={(e) => setIrrigationType(e.target.checked)}
+                    onChange={(e) => {
+                        setIrrigationConfirmationIsOpen(true);
+                        setSwitchChangeEvent(e.target.checked);
+                    } }
                   />
                 }
                 label={
@@ -51,7 +58,9 @@ const Irrigations = ({ dispatch }) => {
               />
             </FormGroup>
             {iotData.manualIrrigation && (
-              <IconButton onClick={onPowerClick}>
+              <IconButton onClick={() => {
+                  setToggleOnOffConfirmationIsOpen(true);
+              }}>
                 {iotData.pump === "ON" ? "Apagar" : "Encender"}
                 <PowerSettingsNewIcon />
               </IconButton>
@@ -98,6 +107,28 @@ const Irrigations = ({ dispatch }) => {
             </Box>
           )}
         </Box>
+        <Confirmation
+            text="¿Está seguro que desea cambiar el modo de riego?"
+            title="Cambiar modo de riego"
+            open={irrigationConfirmationIsOpen}
+            onClose={() => setIrrigationConfirmationIsOpen(false)}
+            onConfirm={() => {
+                setIrrigationType(switchChangeEvent).then(() => {
+                    setIrrigationConfirmationIsOpen(false);
+                })
+            }}
+        />
+          <Confirmation
+              text="¿Está seguro que desea cambiar el estado del dispositivo?"
+              title="Cambiar estado del dispositivo"
+              open={toggleOnOffConfirmationIsOpen}
+              onClose={() => setToggleOnOffConfirmationIsOpen(false)}
+              onConfirm={() => {
+                  onPowerClick().then(() => {
+                      setToggleOnOffConfirmationIsOpen(false);
+                  });
+              }}
+          />
       </>
     )
   );
