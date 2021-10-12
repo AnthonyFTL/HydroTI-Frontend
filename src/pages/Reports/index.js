@@ -6,54 +6,21 @@ import { connect } from "react-redux";
 import IrrigationEntry from "../../model/irrigationEntry";
 
 const Reports = ({ details, dispatch }) => {
+
+    console.log('logging details'); //1 //5
+    console.log(details); //2 //6
+
+
     useEffect(() => {
+        console.log('use effect') //4
         dispatch(getReports());
         return () => dispatch(irrigationEntriesResetState());
     }, []);
 
-    if (!details) return null;
-    console.log('armando pls');
-    console.log(details);
-
-
-// TODO: https://react-table.tanstack.com/docs/quick-start
-    const data = React.useMemo(
-        () => [
-            {
-                col1: 'Hello',
-                col2: 'World',
-            },
-            {
-                col1: 'react-table',
-                col2: 'rocks',
-            },
-            {
-                col1: 'whatever',
-                col2: 'you want',
-            },
-        ],
-        []
-    )
-
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Fecha de inicio de riego',
-                accessor: 'col1', // accessor is the "key" in the data
-            },
-            {
-                Header: 'Fecha de fin de riego',
-                accessor: 'col2',
-            },
-            {
-                Header: 'Tiempo de riego',
-                accessor: 'col3',
-            },
-        ],
-        []
-    )
-
-    const tableInstance = useTable({columns, data})
+    if (!details) {
+        console.log('nohay')//3
+        return null;
+    }
 
     const {
         getTableProps,
@@ -62,7 +29,7 @@ const Reports = ({ details, dispatch }) => {
         rows,
         prepareRow,
 
-    } = tableInstance
+    } = drawTable();
 
     return (
         <table {...getTableProps()} style={{border: 'solid 2px black'}}>
@@ -120,6 +87,48 @@ Reports.propTypes = {
     details: PropTypes.instanceOf(IrrigationEntry),
     dispatch: PropTypes.func.isRequired,
 };
+
+function drawTable(){
+    // TODO: https://react-table.tanstack.com/docs/quick-start
+    const data = React.useMemo(
+        () => [
+            {
+                col1: 'Hello',
+                col2: 'World',
+            },
+            {
+                col1: 'react-table',
+                col2: 'rocks',
+            },
+            {
+                col1: 'whatever',
+                col2: 'you want',
+            },
+        ],
+        []
+    )
+
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'Fecha de inicio de riego',
+                accessor: 'col1', // accessor is the "key" in the data
+            },
+            {
+                Header: 'Fecha de fin de riego',
+                accessor: 'col2',
+            },
+            {
+                Header: 'Tiempo de riego (segundos)',
+                accessor: 'col3',
+            },
+        ],
+        []
+    )
+
+    const tableInstance = useTable({columns, data})
+    return tableInstance;
+}
 
 const mapStateToProps = (state) => ({
     details: state.irrigationEntries.details,
