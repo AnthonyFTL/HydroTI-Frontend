@@ -4,8 +4,21 @@ import Location from "../model/location";
 import LocationDetails from "../model/locationDetails";
 
 import locationState from "../model/locationState";
+import IrrigationEntry from "../model/irrigationEntry";
 
 class IrrigationService {
+
+  async getIrrigationEntries(){
+    try {
+      const response = await httpClient.get("irrigations");
+      return response.data.map((entry) =>
+          this.convertIrrigationEntryToModel(entry)
+      );
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   async getAllIrrigations() {
     try {
       const response = await httpClient.get("parks");
@@ -33,6 +46,14 @@ class IrrigationService {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  convertIrrigationEntryToModel(entry) {
+    return new IrrigationEntry(
+        entry.startDate,
+        entry.endDate,
+        entry.irrigationDuration
+    )
   }
 
   convertLocationToModel(location) {
@@ -71,6 +92,8 @@ class IrrigationService {
       }
     }
   }
+
+
 }
 
 export default new IrrigationService();
