@@ -3,7 +3,8 @@ import httpClient from "../util/httpClient";
 class DataService {
   async switchPumpValue() {
     try {
-      await httpClient.post("/iot/pump");
+      const response = await httpClient.post("/iot/pump");
+      return response;
     } catch (error) {
       return Promise.reject(error);
     }

@@ -8,6 +8,14 @@ import IrrigationEntry from "../model/irrigationEntry";
 
 class IrrigationService {
 
+  async setAutomaticIrrigationValue(shouldStart){
+    try {
+      await httpClient.post(`irrigations/automatic?isStarting=${shouldStart}`);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   async getIrrigationEntries(){
     try {
       const response = await httpClient.get("irrigations");
